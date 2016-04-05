@@ -24,6 +24,8 @@ public class Config {
     public static double alpha;
     public static int maxRating;
     public static String filePath = "conf/config.properties";
+    
+    private static Config instance =null;  
 
     public static void writeToProperty() {
         Properties properties = new Properties();
@@ -35,7 +37,17 @@ public class Config {
         }
     }
 
-    public static void init() {
+    public static synchronized  Config getInstance(){  
+
+		if (instance == null) {
+			instance = new Config();
+		}
+
+		return instance;
+          
+    }  
+    
+    public Config() {
         System.out.println("init");
         Properties properties = new Properties();
 
