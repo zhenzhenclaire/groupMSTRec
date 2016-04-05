@@ -1,7 +1,7 @@
-package claire.service;
+package com.claire.service;
 
-import claire.entity.*;
-import claire.util.Matrix;
+import com.claire.entity.*;
+import com.claire.util.Matrix;
 
 import java.util.List;
 

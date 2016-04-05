@@ -1,8 +1,15 @@
-package claire.service;
-
-import claire.entity.*;
+package com.claire.service;
 
 import java.util.List;
+
+import com.claire.entity.Group;
+import com.claire.entity.InducedGraph;
+import com.claire.entity.Item;
+import com.claire.entity.ItemBridge;
+import com.claire.entity.ItemNode;
+import com.claire.entity.MSTPair;
+import com.claire.entity.UserNode;
+
 
 /**
  * Created by admin on 2016/3/31.

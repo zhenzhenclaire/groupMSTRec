@@ -1,4 +1,4 @@
-package claire.util;
+package com.claire.util;
 
 import java.io.*;
 import java.util.Properties;

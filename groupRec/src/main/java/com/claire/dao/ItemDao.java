@@ -1,7 +1,7 @@
-package claire.dao;
+package com.claire.dao;
 
 
-import claire.entity.Item;
+import com.claire.entity.Item;
 
 /**
  * Created by admin on 2016/4/5.
