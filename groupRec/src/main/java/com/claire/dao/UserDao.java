@@ -1,10 +1,19 @@
 package claire.dao;
 
-import java.io.File;
+import claire.entity.User;
 
 /**
  * Created by admin on 2016/4/5.
  */
 public interface UserDao {
-    File makeUserReflectionTable(File userFile);
+
+    void makeUserReflectionTable();
+
+    int getReflectedId(String uid);
+
+    String getOriginalId(int reflectedUid);
+
+    User findUserByUid(String uid);
+
+
 }
