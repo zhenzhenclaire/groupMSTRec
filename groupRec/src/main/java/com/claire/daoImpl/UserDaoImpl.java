@@ -42,14 +42,29 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public int getReflectedId(String uid) {
-		// TODO Auto-generated method stub
-		return 0;
+		String userReflectionTable = Config.userReflectionTable;
+		String reg = "(.*" + uid + ".*)";
+		ArrayList<String> userList = FileProcess.readFileByLines(userReflectionTable, reg);
+		if(userList.size() == 1) {
+			return new Integer(userList.get(0).substring(0,userList.get(0).indexOf("\t"))).intValue();
+		} else {
+			// We found more than one user with the given uid, this should not happen.
+			return 0;
+		}
+
 	}
 
 	@Override
 	public String getOriginalId(int reflectedUid) {
-		// TODO Auto-generated method stub
-		return null;
+		String userReflectionTable = Config.userReflectionTable;
+		String reg = "(" + reflectedUid + "\t.*)";
+		ArrayList<String> userList = FileProcess.readFileByLines(userReflectionTable, reg);
+		if(userList.size() == 1) {
+			return userList.get(0).substring(userList.get(0).indexOf("\t")+1,userList.get(0).length()).trim();
+		} else {
+			// We found more than one user with the given reflectedUid, this should not happen.
+			return null;
+		}
 	}
 
 	@Override
