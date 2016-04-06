@@ -1,6 +1,8 @@
 package com.claire.daoImpl;
 
 import com.claire.dao.ReviewDao;
+import com.claire.dao.UserDao;
+import com.claire.dao.ItemDao;
 import com.claire.util.Config;
 import com.claire.util.FileProcess;
 
@@ -31,13 +33,35 @@ public class ReviewDaoImpl implements ReviewDao {
         logger.info(starList.size() + "");
 
         FileProcess.writeToFile(starList, ratingFile);
+
+        replaceByReflectionTable(starList);
         logger.info("Done.");
     }
 
     @Override
-    public void replaceByReflectionTable() {
+    public void replaceByReflectionTable(ArrayList<String> starList) {
 
+        UserDao user = new UserDaoImpl();
+        ItemDao item = new ItemDaoImpl();
+        ArrayList<String> replacedStarList = new ArrayList<String>();
 
+        logger.info("Start making replaced rating file.");
+
+        for(String str:starList){
+            String[] review = str.split(",");
+            if(review.length == 3) {
+
+                int uid = user.getReflectedId(review[0].trim());
+                int itemId = item.getReflectedId(review[1].trim());
+
+                replacedStarList.add(uid+"," + itemId + "," + review[2]);
+
+            } else {
+                // this line of data is not user,item,rating, just drop it.
+            }
+        }
+        FileProcess.writeToFile(replacedStarList, replacedRating);
+        logger.info("Done.");
     }
 
     @Override

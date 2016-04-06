@@ -6,6 +6,8 @@ import com.claire.util.Config;
 import com.claire.util.FileProcess;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -15,6 +17,9 @@ public class UserDaoImpl implements UserDao{
     static Logger logger = Logger.getLogger("UserDaoImpl");
     String userFile = Config.userFile;
     String userReflectionTable = Config.userReflectionTable;
+
+	public static Map<String, String> userListById;
+	public static Map<String, String> userListByName;
 
 	@Override
 	public void makeUserReflectionTable() {
@@ -30,6 +35,7 @@ public class UserDaoImpl implements UserDao{
 		// Generate userid <int>
 		for(int i = 1;i <= userList.size();i++){
 			userReflectionList.add(i + "\t" + userList.get(i - 1) + "\n");
+
 		}
 		
 		// Generate userid <String> TAB userid <int> userReflectionTable
@@ -39,6 +45,11 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public int getReflectedId(String uid) {
+		//Initialize the list to get user
+		generateUserList();
+		return (new Integer (userListByName.get(uid))).intValue();
+
+		/* No need to read the file every time.
 		String reg = "(.*" + uid + ".*)";
 		ArrayList<String> userList = FileProcess.readFileByLines(userReflectionTable, reg);
 		if(userList.size() == 1) {
@@ -47,11 +58,16 @@ public class UserDaoImpl implements UserDao{
 			// We found more than one user with the given uid, this should not happen.
 			return 0;
 		}
-
+		*/
 	}
 
 	@Override
 	public String getOriginalId(int reflectedUid) {
+
+		generateUserList();
+		return userListById.get(reflectedUid + "");
+
+		/* No need to read the file every time.
 		String reg = "(" + reflectedUid + "\t.*)";
 		ArrayList<String> userList = FileProcess.readFileByLines(userReflectionTable, reg);
 		if(userList.size() == 1) {
@@ -59,6 +75,32 @@ public class UserDaoImpl implements UserDao{
 		} else {
 			// We found more than one user with the given reflectedUid, this should not happen.
 			return null;
+		}
+		*/
+	}
+
+	@Override
+	public void generateUserList() {
+
+		Map<String, String> userMapById = new HashMap<String, String>();
+		Map<String, String> userMapByName = new HashMap<String, String>();
+
+		if (userListById == null || userListByName == null ) {
+
+			logger.info("Need to generate userList map again.");
+			ArrayList <String> userList = FileProcess.readFileByLines(userReflectionTable, "(.*)");
+
+			logger.info("userList.size(): " + userList.size() );
+
+			for(String str:userList){
+				String uid = str.substring(0,str.indexOf("\t"));
+				String uName = str.substring(str.indexOf("\t")+1,str.length()).trim();
+				userMapById.put(uid, uName);
+				userMapByName.put(uName, uid);
+			}
+			userListById = userMapById;
+			userListByName = userMapByName;
+
 		}
 	}
 

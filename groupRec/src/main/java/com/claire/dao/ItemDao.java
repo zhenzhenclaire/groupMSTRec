@@ -16,4 +16,6 @@ public interface ItemDao {
 
     Item findItemByRid(String rid);
 
+    void generateItemList();
+
 }

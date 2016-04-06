@@ -14,5 +14,7 @@ public interface UserDao {
     String getOriginalId(int reflectedUid);
 
     User findUserByUid(String uid);
+
+    void generateUserList();
 	
 }

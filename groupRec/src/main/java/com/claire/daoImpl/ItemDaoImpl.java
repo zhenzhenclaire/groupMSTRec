@@ -6,6 +6,8 @@ import com.claire.util.Config;
 import com.claire.util.FileProcess;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -15,6 +17,10 @@ public class ItemDaoImpl implements ItemDao {
     static Logger logger = Logger.getLogger("ItemDaoImpl");
     String itemFile = Config.itemFile;
     String itemReflectionTable = Config.itemReflectionTable;
+
+    public static Map<String, String> itemListById;
+    public static Map<String, String> itemListByName;
+
 
     @Override
     public void makeItemReflectionTable() {
@@ -41,6 +47,12 @@ public class ItemDaoImpl implements ItemDao {
 
     @Override
     public int getReflectedId(String rid) {
+
+
+        generateItemList();
+        return (new Integer (itemListByName.get(rid))).intValue();
+
+        /* No need to read the file every time
         logger.info("Get reflected id of user:" + rid);
         String itemReflectionTable = Config.itemReflectionTable;
         String reg = "(.*" + rid + ".*)";
@@ -51,10 +63,16 @@ public class ItemDaoImpl implements ItemDao {
             // We found more than one item with the given uid, this should not happen.
             return 0;
         }
+        */
     }
 
     @Override
     public String getOriginalId(int reflectedRid) {
+
+        generateItemList();
+        return itemListById.get(reflectedRid + "");
+
+        /* No need to read the file every time
         String reg = "(" + reflectedRid + "\t.*)";
         ArrayList<String> itemList = FileProcess.readFileByLines(itemReflectionTable, reg);
         if (itemList.size() == 1) {
@@ -63,8 +81,33 @@ public class ItemDaoImpl implements ItemDao {
             // We found more than one item with the given reflectedUid, this should not happen.
             return null;
         }
+        */
     }
 
+    @Override
+    public void generateItemList() {
+
+        Map<String, String> itemMapById = new HashMap<String, String>();
+        Map<String, String> itemMapByName = new HashMap<String, String>();
+
+        if (itemListById == null || itemListByName == null ) {
+
+            logger.info("Need to generate userList map again.");
+            ArrayList <String> itemList = FileProcess.readFileByLines(itemReflectionTable, "(.*)");
+
+            logger.info("itemList.size(): " + itemList.size() );
+
+            for(String str:itemList){
+                String uid = str.substring(0,str.indexOf("\t"));
+                String uName = str.substring(str.indexOf("\t")+1,str.length()).trim();
+                itemMapById.put(uid, uName);
+                itemMapByName.put(uName, uid);
+            }
+            itemListById = itemMapById;
+            itemListByName = itemMapByName;
+
+        }
+    }
     @Override
     public Item findItemByRid(String rid) {
         return null;
