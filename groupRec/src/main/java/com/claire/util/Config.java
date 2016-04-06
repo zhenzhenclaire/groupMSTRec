@@ -11,13 +11,15 @@ public class Config {
     public static String clusteringPath;
     public static String userFile;
     public static String itemFile;
+    public static String reviewFile;
+
     public static String ratingFile;
-    public static String originalMatrixPath;
-    public static String parsedMatrixPath;
+    public static String replacedRating;
     public static String squareMatrixPath;
     public static String clusteringResult;
+
     public static String userReflectionTable;
-    public static String hotelReflectionTable;
+    public static String itemReflectionTable;
     public static String ratingModel;
     public static String mergedUser;
     public static String mergedHotel;
@@ -60,14 +62,18 @@ public class Config {
         dataPath = properties.getProperty("dataPath");
         userFile = dataPath + properties.getProperty("userFile");
         itemFile = dataPath + properties.getProperty("itemFile");
+        reviewFile = dataPath + properties.getProperty("reviewFile");
+
+
+        userReflectionTable = dataPath + properties.getProperty("userReflectionTable");
+        itemReflectionTable = dataPath + properties.getProperty("itemReflectionTable");
         ratingFile = dataPath + properties.getProperty("ratingFile");
+        replacedRating = dataPath + properties.getProperty("replacedRating");
+
         clusteringPath = dataPath + properties.getProperty("clusteringPath");
-        originalMatrixPath = clusteringPath + properties.getProperty("originalMatrixPath");
-        parsedMatrixPath = clusteringPath + properties.getProperty("parsedMatrixPath");
         squareMatrixPath = clusteringPath + properties.getProperty("squareMatrixPath");
         clusteringResult = clusteringPath + properties.getProperty("clusteringResult");
-        userReflectionTable = dataPath + properties.getProperty("userReflectionTable");
-        hotelReflectionTable = dataPath + properties.getProperty("hotelReflectionTable");
+
         ratingModel = dataPath + properties.getProperty("ratingModel");
         mergedHotel = clusteringPath + properties.getProperty("mergedHotel");
         mergedUser = clusteringPath + properties.getProperty("mergedUser");

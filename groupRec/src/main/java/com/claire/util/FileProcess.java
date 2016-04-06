@@ -1,15 +1,7 @@
 package com.claire.util;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,8 +57,9 @@ public class FileProcess {
 			}
 		}
 	   }
-	   
-	   public static ArrayList <String> readFileByLines(String fileName, String reg) {
+
+
+	public static ArrayList <String> readFileByLines(String fileName, String reg) {
 	        File file = new File(fileName);
 	        BufferedReader reader = null;
 	        ArrayList<String> list = new ArrayList<String>();
@@ -97,6 +90,45 @@ public class FileProcess {
 	        }
 			return list;
 	    }
+
+	public static ArrayList<String> readFileByLines(String fileName, String reg1, String reg2, String reg3) {
+		File file = new File(fileName);
+		BufferedReader reader = null;
+		ArrayList<String> list = new ArrayList<String>();
+		try {
+			reader = new BufferedReader(new FileReader(file));
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				Pattern pat1 = Pattern.compile(reg1);
+				Pattern pat2 = Pattern.compile(reg2);
+				Pattern pat3 = Pattern.compile(reg3);
+				Matcher mat1 = pat1.matcher(line);
+				Matcher mat2 = pat2.matcher(line);
+				Matcher mat3 = pat3.matcher(line);
+				boolean rs1 = mat1.find();
+				boolean rs2 = mat2.find();
+				boolean rs3 = mat3.find();
+				if (rs1 && rs2 && rs3 && mat1.groupCount() == 1 && null != mat1.group(1) && mat2.groupCount() == 1 && null != mat2.group(1) && mat3.groupCount() == 1 && null != mat3.group(1)) {
+					String str = mat1.group(1) + "," + mat2.group(1) + "," + mat3.group(1) + "\n";
+					list.add(str);
+				} else {
+					// This line of data is invalid, just drop it.
+				}
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
    public static void main(String[] args){
         FileProcess.readFileByLines("data/yelp_academic_dataset_review.json");
     }
