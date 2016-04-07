@@ -87,12 +87,12 @@ public class ItemDaoImpl implements ItemDao {
     @Override
     public void generateItemList() {
 
-        Map<String, String> itemMapById = new HashMap<String, String>();
-        Map<String, String> itemMapByName = new HashMap<String, String>();
-
         if (itemListById == null || itemListByName == null ) {
 
             logger.info("Need to generate userList map again.");
+            Map<String, String> itemMapById = new HashMap<String, String>();
+            Map<String, String> itemMapByName = new HashMap<String, String>();
+
             ArrayList <String> itemList = FileProcess.readFileByLines(itemReflectionTable, "(.*)");
 
             logger.info("itemList.size(): " + itemList.size() );

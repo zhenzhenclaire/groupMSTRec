@@ -82,12 +82,12 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public void generateUserList() {
 
-		Map<String, String> userMapById = new HashMap<String, String>();
-		Map<String, String> userMapByName = new HashMap<String, String>();
-
 		if (userListById == null || userListByName == null ) {
 
 			logger.info("Need to generate userList map again.");
+			Map<String, String> userMapById = new HashMap<String, String>();
+			Map<String, String> userMapByName = new HashMap<String, String>();
+
 			ArrayList <String> userList = FileProcess.readFileByLines(userReflectionTable, "(.*)");
 
 			logger.info("userList.size(): " + userList.size() );
