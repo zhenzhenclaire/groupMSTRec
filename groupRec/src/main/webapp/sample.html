@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample</title>
+    <style type="text/css">
+		html, body, #map {
+		  height: 100%;
+		  margin: 0;
+		}
+    </style>
+
+</head>
+<body>
+<div id="map"></div>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyDYrqa54WapJr1niP-mp6j6yzHbkvludF8"></script>
+<script type="text/javascript">
+function displayRoute(startPoint, endPoint, mode) {
+
+    //var start = new google.maps.LatLng(37.7531, -122.4039);
+    //var end = new google.maps.LatLng(37.7831, -122.4039);
+
+    var directionsDisplay = new google.maps.DirectionsRenderer();// also, constructor can get "DirectionsRendererOptions" object
+    directionsDisplay.setMap(map); // map should be already initialized.
+
+    var request = {
+        origin : startPoint,
+        destination : endPoint,
+        travelMode : mode
+    };
+    var directionsService = new google.maps.DirectionsService();
+    directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
+}
+
+function displayRoute2() {
+
+    var start = new google.maps.LatLng(37.7531, -122.4039);
+    var end = new google.maps.LatLng(37.7231, -122.4039);
+
+    var directionsDisplay = new google.maps.DirectionsRenderer();// also, constructor can get "DirectionsRendererOptions" object
+    directionsDisplay.setMap(map); // map should be already initialized.
+
+    var request = {
+        origin : start,
+        destination : end,
+        travelMode : google.maps.TravelMode.DRIVING
+    };
+    var directionsService = new google.maps.DirectionsService();
+    directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
+}
+
+function toggleBounce() {
+	  if (marker.getAnimation() !== null) {
+	    marker.setAnimation(null);
+	  } else {
+	    marker.setAnimation(google.maps.Animation.BOUNCE);
+	  }
+	}
+	var mapOptions = {
+	    center: new google.maps.LatLng(37.7831, -122.4039),
+	    zoom: 12,
+	    mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+	//var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+
+
+	var image = 'http://www.sitcoffee.com/images/logo.png';
+	var markerOptions = {
+	    position: new google.maps.LatLng(37.7831, -122.4039),
+	    animation: google.maps.Animation.DROP,
+	    map: map,
+	    icon: image
+	};
+	displayRoute("37.7531, -122.4039", "37.7831, -122.4039", google.maps.TravelMode.DRIVING);
+	displayRoute("37.7831, -122.4139", "37.7831, -122.4039", google.maps.TravelMode.DRIVING);
+	displayRoute("37.7331, -122.4639", "37.7831, -122.4039", google.maps.TravelMode.DRIVING);
+	displayRoute("37.7631, -122.4339", "37.7831, -122.4039", google.maps.TravelMode.DRIVING);
+	displayRoute("37.7931, -122.4539", "37.7831, -122.4039", google.maps.TravelMode.DRIVING);
+	displayRoute("37.7131, -122.4039", "37.7831, -122.4039", google.maps.TravelMode.DRIVING);
+	//displayRoute2();
+
+
+	var marker = new google.maps.Marker(markerOptions);
+	marker.addListener('click', toggleBounce);
+	marker.setMap(map);
+
+
+	var infoWindowOptions = {
+	    content: 'This is the recommended restaurant!'
+	};
+
+	var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+	google.maps.event.addListener(marker,'click',function(e){
+
+	  infoWindow.open(map, marker);
+
+	});
+
+</script>
+</body>
+</html>
