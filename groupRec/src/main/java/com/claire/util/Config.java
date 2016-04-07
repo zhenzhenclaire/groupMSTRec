@@ -25,7 +25,7 @@ public class Config {
     public static String mergedHotel;
     public static double alpha;
     public static int maxRating;
-    public static String filePath = "conf/config.properties";
+    public static String filePath = "groupRec/conf/config.properties";
     
     private static Config instance =null;  
 
