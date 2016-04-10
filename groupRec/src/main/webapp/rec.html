@@ -107,6 +107,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 </div>
 <script src="js/bootstrap.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyDYrqa54WapJr1niP-mp6j6yzHbkvludF8"></script>
 <script>
 $.ajax({
     type: "GET",
@@ -116,7 +117,9 @@ $.ajax({
         //alert(JSON.stringify(data.groupID));
     	$("#groupInfo").html("Group ID: " + JSON.stringify(data.id));
     	$("#group").html("Group: " + JSON.stringify(data));
-    	showGroup(data.members);
+    	showGroup(data.members,data.recommendation);
+    	showGroup2(data.members,data.recommendation);
+    	//showGroupWithRealtimeGoogleService(data.members, data.recommendation);
     	var users = data.members;
     	//alert(eval(users).length);
     	totalNumberOfMembersInGroup = data.numberOfMembers;
@@ -129,20 +132,100 @@ $.ajax({
     }
 });
 
-function showGroup(json){
+function getLatLngFromString(ll) {
+    var latlng = ll.split(',')
+    return new google.maps.LatLng(parseFloat(latlng[0].trim()), parseFloat(latlng[1].trim())); 
+}
 
-	  var htmls=['']; 
-	  for(var i=0,L=json.length;i<L;i++){
-		  //console.log(json[i].travelTime);
-		  //console.log(getTime(json[i].travelTime));
-		    htmls.push('<div class="service_grid_1 txt_2"><h4>'+json[i].name+'</h4><p>Distance ' + json[i].distance + ', time needed ');
-		    htmls.push(getTime(parseInt(json[i].travelTime))); 
+function showGroup(json, target){
+	/* var objectId = 'groupDIV';
+	alert($('#groupDIV').html());
+	alert($('#' + objectId).html());
+	 */
+		  var htmls=['']; 
+		  for(var i=0,L=json.length;i<L;i++){
+			  //console.log(json[i].travelTime);
+			  //console.log(getTime(json[i].travelTime));
+			    htmls.push('<div class="service_grid_1 txt_2"><h4>'+json[i].name+'</h4><p id=' + json[i].name + '></p></div>');
+// 			    htmls.push(getTime(parseInt(json[i].travelTime))); 
+//			    htmls.push('</p></div>');
+
+			    getTravelInfo(json[i].name, getLatLngFromString(json[i].location), 
+			    getLatLngFromString(target.location), google.maps.DirectionsTravelMode.DRIVING, function(result){
+			        console.log(result);
+			    });
+			    
+			    
+			  }
+		  $('#groupDIV').html(htmls.join(''));
+		}
+
+function showGroup2(json, target){
+
+		  for(var i=0,L=json.length;i<L;i++){
+			  //console.log(json[i].travelTime);
+			  //console.log(getTime(json[i].travelTime));
+			    
+			    getTravelInfo(json[i].name, getLatLngFromString(json[i].location), 
+			    getLatLngFromString(target.location), google.maps.DirectionsTravelMode.DRIVING, function(result){
+			        //console.log(result);
+			    	//$('#' + json[i].name).html(result);
+			    });
+			  }
+		}
+
+function getTravelInfo(username, start, end, mode, callback) {
+	var request = {
+		    origin: start, // LatLng|string
+		    destination: end, // LatLng|string
+		    travelMode: google.maps.DirectionsTravelMode.DRIVING
+		};
+	var directionsService = new google.maps.DirectionsService();
+
+		directionsService.route( request, function( response, status ) {
+
+		    if ( status === 'OK' ) {
+		        var point = response.routes[ 0 ].legs[ 0 ];
+		        console.log(request.origin);
+		        console.log( 'Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
+		        //callback(response.routes[0].legs[0].start_location);
+		        $('#' + username).html('Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')');
+		        callback('Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')');
+		        //$('#groupDIV').append(htmls.join(''));
+		    }
+		} );
+}
+
+
+function showGroupWithRealtimeGoogleService(users, target) {
+	var htmls=['']; 
+	for(var i=0,L=users.length;i<L;i++){
+	var username = users[i].name;
+	var origin = getLatLngFromString(users[i].location); // using google.maps.LatLng class
+	var destination = getLatLngFromString(target.location); // using string
+
+	var directionsService = new google.maps.DirectionsService();
+	var request = {
+	    origin: origin, // LatLng|string
+	    destination: destination, // LatLng|string
+	    travelMode: google.maps.DirectionsTravelMode.DRIVING
+	};
+
+	directionsService.route( request, function( response, status ) {
+
+	    if ( status === 'OK' ) {
+	        var point = response.routes[ 0 ].legs[ 0 ];
+	        console.log(request.origin);
+	        console.log( 'Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
+	        htmls.push('<div class="service_grid_1 txt_2"><h4>'+username+'</h4><p> Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
 		    htmls.push('</p></div>'); 
-		  }
-	  $('#groupDIV').html(htmls.join(''));
+		    //$('#groupDIV').append(htmls.join(''));
+	    }
+	} );
 	}
-
-
+	console.log('Push to div to display');
+	//$('#groupDIV').html(htmls.join(''));
+}
 
 function getTime(seconds){
 	var date = new Date(seconds);
@@ -160,6 +243,30 @@ function getTime(seconds){
 	console.log(t);
 	return t;
 }
+
+/*
+ * 
+ function snap_to_road (lat, callback) {
+	    var position;
+
+	    var request = {
+	        origin: lat,
+	        destination: lat,
+	        travelMode: google.maps.DirectionsTravelMode.DRIVING
+	    };
+
+	    directionsService.route(request, function(response, status) {
+	        if (status == google.maps.DirectionsStatus.OK) {
+	            callback(response.routes[0].legs[0].start_location);
+	        }
+	    });
+	}
+
+	snap_to_road(current.latLng, function(result) {
+	    alert(result);
+	});
+ */
+
 </script>
 </body>
 </html>
