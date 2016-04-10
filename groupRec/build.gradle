@@ -1,5 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'war'
+apply plugin: 'jetty'
 
 sourceCompatibility = 1.7
 version = '1.0'
@@ -9,7 +11,7 @@ jar {
                    'Implementation-Version': version
     }
 }
-
+[compileJava,compileTestJava,javadoc]*.options*.encoding = "UTF-8"
 repositories {
     mavenCentral()
 }
@@ -17,6 +19,15 @@ repositories {
 dependencies {
     compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
     testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+
+jettyRun{
+    webAppSourceDirectory file("$projectDir/src/main/webapp")
+    httpPort 8080
+    contextPath project.name
+    scanIntervalSeconds 0
+    reload "automatic"
 }
 
 test {

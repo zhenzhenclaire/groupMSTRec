@@ -14,6 +14,37 @@ public class User {
 	
 	private Time startTime;
 
+	private Group belonging;
+	
+	private Mode transportMode;
+	
+	private int right;
+
+	private String location;
+	
+	private int averageStars;
+	
+	private long travelTime;
+	
+	private String distance;
+	
+
+	public long getTravelTime() {
+		return travelTime;
+	}
+
+	public void setTravelTime(long travelTime) {
+		this.travelTime = travelTime;
+	}
+
+	public String getDistance() {
+		return distance;
+	}
+
+	public void setDistance(String distance) {
+		this.distance = distance;
+	}
+
 	public String getUid() {
 		return uid;
 	}
@@ -78,15 +109,5 @@ public class User {
 		this.averageStars = averageStars;
 	}
 
-	private Group belonging;
-	
-	private Mode transportMode;
-	
-	private int right;
-
-	private String location;
-	
-	private int averageStars;
-	
 
 }

@@ -50,16 +50,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 	   <div class="contact-form">
 				<div class="col-md-6 contact-grid">
-					<h3>Create group</h3>
+					<h3>Join group</h3>
 					<form>
-						<p class="your-para">Your username</p>
-						<input type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
-						<p class="your-para">Your password:</p>
-						<input type="password" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
-						<p class="your-para"><input type="checkbox" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}"> I'm a group owner.</p>
-						<p class="your-para"></p>
+						<p class="your-para">Group ID</p>
+						<input id="groupID" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+						<p class="your-para">Departure time</p>
+						<input id="departureTime" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+						<p class="your-para">Mode</p>
+						<select id="mode" name="mode">
+							<option value="driving">Drive</option>
+							<option value="bicycling">Bicycling</option>
+							<option value="walking">Walk</option>
+						</select>
 						<div class="send">
-							<input type="submit" value="Send">
+							<input id="joinGroupButton" type="button" value="Join">
 						</div>
 					</form>
 				</div>
@@ -109,5 +113,64 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 </div>
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+// Get group ID from REST and show on page
+$.ajax({
+    type: "GET",
+    url: "http://localhost:8080/rec/getGroup",
+    contentType: "application/json; charset=utf-8",
+    success: function (data) {
+        //alert(JSON.stringify(data.groupID));
+    	$("#groupInfo").html("Group ID: " + JSON.stringify(data.groupID));
+    },
+    error: function (message) {
+    	alert("Log in failed");
+        //$("#request-process-patent").html("Failed");
+    }
+});
+
+$("#joinGroupButton").click(function() {
+    //$("#request-process-patent").html("Submitting...");
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/rec/joinGroup",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(GetJsonData()),
+        dataType: "json",
+        success: function (result) {
+	        //alert("success");
+	        //alert(JSON.stringify(result));
+        	//alert("isGroupOwner: " + JSON.stringify(result.isGroupOwner));
+        	//console.log("isGroupOwner: " + JSON.stringify(result.isGroupOwner));
+        	location.href="group.html";
+        	
+        },
+        error: function (message) {
+        	alert("Log in failed");
+            //$("#request-process-patent").html("Failed");
+        }
+    });
+});
+
+function GetJsonData() {
+    var json = {
+        "groupID" : $("#groupID").val(),
+    	"departureTime": $("#departureTime").val(),
+        "mode": $("#mode").val(),
+        "user": GetQueryString("user")
+        
+    };
+    alert("data to submit: " + JSON.stringify(json));
+    return json;
+}
+
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
+</script>
 </body>
 </html>		

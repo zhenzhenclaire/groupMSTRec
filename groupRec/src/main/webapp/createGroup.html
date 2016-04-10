@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Contact</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Eatery Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<!-- Custom Theme files -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- Custom Theme files -->
+</head>
+<body>
+<!--banner-->
+	<div class="about_banner">
+		<!--header-->
+		<div class="headder">
+			<div class="container">				
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
+					<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="index.html"> <img src="images/logo.png" alt=""/> </a>
+						</div>
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="login.html" class="active">Log in</a></li>
+							</ul>	
+						</div>	
+						<div class="clearfix"> </div>
+					</div>	
+				</nav>				
+			</div>	
+		</div>	
+	</div>
+<!--//banner-->
+<div class="about_top">
+	<div class="container">
+	   <div class="contact-form">
+				<div id="createGroupDIV" class="col-md-12 contact-grid">
+					<h3>Create group</h3>
+					<form>
+						<p id="groupInfo" class="your-para" ></p>
+						<p class="your-para">Gathering Time:</p>
+						<input id="gatheringTime" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+						<p class="your-para">Number of users:</p>
+						<input id="numberOfUsers" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+						<p class="your-para">Departure Time:</p>
+						<input id="departureTime" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+						<p class="your-para">Mode</p>
+						<select id="mode" name="mode">
+							<option value="driving">Drive</option>
+							<option value="bicycling">Bicycling</option>
+							<option value="walking">Walk</option>
+						</select>
+						<p class="your-para"></p>
+						<div class="send">
+							<input id="createGroupButton" type="button" value="Submit">
+						</div>
+					</form>
+				</div>
+				
+				<div id="groupInfoDIV" class="col-md-12 contact-grid" style="display:block;">
+					<h3>Group Information</h3>
+					
+										
+					<p id="groupInfo1"></p>
+					<p id="group1"></p>
+					<div id="table1"></div>
+					<div class="send">
+							<input id="recommendButton" type="button" value="Recommend" disabled/>
+					</div>
+				<div class="clearfix"> </div>
+	  </div>
+  </div>
+</div>
+<div class="footer">
+	<div class="container">
+	    <div class="col-md-6 col_2">
+		  <ul><li><h5>Tuesday to Friday</h5><p>Lunch: <span>12pm – 03pm</span></p><p>Dinner: <span>05pm – 10pm</span></p></li>
+		    <li><h5>Saturday &amp; Sunday</h5><p>Lunch: <span>11pm – 05pm</span></p><p>Dinner: <span>04pm – 11pm</span></p></li>
+		  </ul>
+		</div>
+		<div class="col-md-6 col_3">
+		  <div class="col_3">
+		  <ul class="menu">
+            <li><a href="#">Home</a></li> |
+            <li><a href="#">About</a></li> |
+            <li><a href="#">Services</a></li> |
+            <li><a href="#">Gallery</a></li> |
+            <li><a href="#">Contact</a></li>
+		  </ul>
+		   <p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网站模板" target="_blank">网站模板</a></p>
+         </div>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+</div>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+var totalNumberOfMembersInGroup = 0;
+var currentNumberOfMembersInGroup = 0;
+// Get group ID from REST and show on page
+$.ajax({
+    type: "GET",
+    url: "http://localhost:8080/rec/getGroup",
+    contentType: "application/json; charset=utf-8",
+    success: function (data) {
+        //alert(JSON.stringify(data.groupID));
+    	$("#groupInfo").html("Group ID: " + JSON.stringify(data.id));
+    	$("#groupInfo1").html("Group ID: " + JSON.stringify(data.id));
+    	totalNumberOfMembersInGroup = data.numberOfMembers;
+    	console.log("number: " + totalNumberOfMembersInGroup);
+    },
+    error: function (message) {
+    	alert("Log in failed");
+        //$("#request-process-patent").html("Failed");
+    }
+});
+
+$("#createGroupButton").click(function() {
+    //$("#request-process-patent").html("Submitting...");
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/rec/createGroup",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(GetJsonData()),
+        dataType: "json",
+        success: function (result) {
+	        //alert("success");
+	        //alert(JSON.stringify(result));
+	        $("#createGroupDIV").hide();
+	        $("#groupInfoDIV").show();
+	        
+        	//alert("isGroupOwner: " + JSON.stringify(result.isGroupOwner));
+        	//console.log("isGroupOwner: " + JSON.stringify(result.isGroupOwner));
+        	
+        },
+        error: function (message) {
+        	alert("Log in failed");
+            //$("#request-process-patent").html("Failed");
+        }
+    });
+});
+
+function GetJsonData() {
+    var json = {
+        "gatheringTime": $("#gatheringTime").val(),
+        "numberOfUsers": $("#numberOfUsers").val(),
+        "departureTime": $("#departureTime").val(),
+        "mode": $("#mode").val(),
+        "user": GetQueryString("user")
+        
+    };
+    //alert("checked: " + $("#isGroupOwner").is(':checked'));
+    //alert("data to submit: " + JSON.stringify(json));
+    return json;
+}
+
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
+
+setInterval(function() {
+	if (parseInt(totalNumberOfMembersInGroup) ===0 || parseInt(currentNumberOfMembersInGroup) < parseInt(totalNumberOfMembersInGroup)) {
+		$.ajax({
+		    type: "GET",
+		    url: "http://localhost:8080/rec/getGroup",
+		    contentType: "application/json; charset=utf-8",
+		    success: function (data) {
+		        //alert(JSON.stringify(data.groupID));
+		    	$("#groupInfo").html("Group ID: " + JSON.stringify(data.id));
+		    	$("#group").html("Group: " + JSON.stringify(data));
+		    	showGroup(data.members);
+		    	var users = data.members;
+		    	//alert(eval(users).length);
+		    	totalNumberOfMembersInGroup = data.numberOfMembers;
+		    	currentNumberOfMembersInGroup = eval(users).length;
+		    	console.log("current number: " + currentNumberOfMembersInGroup);
+		    },
+		    error: function (message) {
+		    	alert("Log in failed");
+		        //$("#request-process-patent").html("Failed");
+		    }
+		});
+	}
+	if (parseInt(totalNumberOfMembersInGroup) != 0 && parseInt(currentNumberOfMembersInGroup) == parseInt(totalNumberOfMembersInGroup)) {
+		console.log('enable recommend button');
+		$("#recommendButton").removeAttr("disabled"); 
+	}
+}, 3000);
+
+function showGroup(json){
+	  var htmls=['<table class="table table-striped">']; 
+	  htmls.push('<tr>')
+	  //for(var k in json[0]) htmls.push('<td>'+k+'</td>');
+	  htmls.push('<td></td><td>name</td><td>startTime</td><td>transportMode</td><td>right</td>');
+	  htmls.push('</tr>');
+	  
+	  for(var i=0,L=json.length;i<L;i++){
+	    htmls.push('<tr>');
+	    j = i + 1;
+	    htmls.push('<td>' + j + '</td><td class="userName">'+json[i].name+'</td><td>' + json[i].startTime + '</td><td>' 
+	    		+ json[i].transportMode + '</td><td><input type="number" id="userRight' + i + '" name="userRight' + i + '"/></td>'); 
+	    htmls.push('</tr>');
+	  }
+	  
+	  htmls.push('</table>');
+	  //alert(htmls.join(''));
+	  $('#table1').html(htmls.join(''));
+	}
+	
+$("#recommendButton").click(function() {
+	$("input[name*='userRight']").each(function(a,b){
+
+    var id = $(b).attr("id");//get id
+    var name = $(b).attr("name");//get name
+    console.log("input: "+ name + " id : " + id + " value is: " + $(b).val());
+    console.log($(b).parent().parent().children(".userName").text());
+       //清空
+    });
+	var dataToPost = GetRightJsonData();
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/rec/recommend",
+        contentType: "application/json; charset=utf-8",
+        data: dataToPost,
+        dataType: "json",
+        success: function (result) {
+	        //alert("success");
+	        //alert(JSON.stringify(result));
+        	location.href="rec.html";
+        },
+        error: function (message) {
+        	alert("Log in failed");
+            //$("#request-process-patent").html("Failed");
+        }
+    });
+});
+
+//for(var k in $("input[name*='userRight']")) console.log(k);
+	
+function GetRightJsonData() {
+    
+    var json = new String("{");
+	$("input[name*='userRight']").each(function(a,b){
+
+	    var id = $(b).attr("id");//get id
+	    var name = $(b).attr("name");//get name
+	    //console.log("input: "+ name + " id : " + id + " value is: " + $(b).val());
+	    //console.log($(b).parent().parent().children(".userName").text());
+	    var key = $(b).parent().parent().children(".userName").text();
+	    var value = $(b).val();
+	    data = '"' + key + '" : "' + value + '",' ;
+	    json = json + data;
+	    });
+    
+	    //json = json.substring(0, json.length -1) + '}';
+	    
+	    json = json + '"flag":"updateRightAndRecommend"}'
+	    console.log("json string to submit: " + json);
+    //alert("checked: " + $("#isGroupOwner").is(':checked'));
+    //alert("data to submit: " + JSON.stringify(json));
+    return json;
+}
+</script>
+</body>
+</html>		

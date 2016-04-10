@@ -49,7 +49,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="about_top">
 	<div class="container">
 		<h1>What we recommended</h1>
-		<div class="col-md-4 box_2">
+		<div id="groupDIV" class="col-md-4 box_2">
+		<!-- 
 			<div class="service_grid_1 txt_1">
 				<h4>User 1</h4>
 				<p>Distance 15km, time needed 30 mins</p>
@@ -70,10 +71,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<h4>User 5</h4>
 				<p>Distance 15km, time needed 30 mins</p>
 			</div>
+			 -->
 		</div>
 		<div class="col-md-8 box_2">
 			<div class="map">
-				<iframe src="../sample.html"></iframe>
+				<iframe src="./map.html"></iframe>
 			</div>
 
 
@@ -105,5 +107,59 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 </div>
 <script src="js/bootstrap.min.js"></script>
+<script>
+$.ajax({
+    type: "GET",
+    url: "http://localhost:8080/rec/getGroup",
+    contentType: "application/json; charset=utf-8",
+    success: function (data) {
+        //alert(JSON.stringify(data.groupID));
+    	$("#groupInfo").html("Group ID: " + JSON.stringify(data.id));
+    	$("#group").html("Group: " + JSON.stringify(data));
+    	showGroup(data.members);
+    	var users = data.members;
+    	//alert(eval(users).length);
+    	totalNumberOfMembersInGroup = data.numberOfMembers;
+    	currentNumberOfMembersInGroup = eval(users).length;
+    	console.log("current number: " + currentNumberOfMembersInGroup);
+    },
+    error: function (message) {
+    	alert("Log in failed");
+        //$("#request-process-patent").html("Failed");
+    }
+});
+
+function showGroup(json){
+
+	  var htmls=['']; 
+	  for(var i=0,L=json.length;i<L;i++){
+		  //console.log(json[i].travelTime);
+		  //console.log(getTime(json[i].travelTime));
+		    htmls.push('<div class="service_grid_1 txt_2"><h4>'+json[i].name+'</h4><p>Distance ' + json[i].distance + ', time needed ');
+		    htmls.push(getTime(parseInt(json[i].travelTime))); 
+		    htmls.push('</p></div>'); 
+		  }
+	  $('#groupDIV').html(htmls.join(''));
+	}
+
+
+
+function getTime(seconds){
+	var date = new Date(seconds);
+	var hh = date.getUTCHours();
+	var mm = date.getUTCMinutes();
+	var ss = date.getSeconds();
+	//If you were building a timestamp instead of a duration, you would uncomment the following line to get 12-hour (not 24) time
+	//if (hh > 12) {hh = hh % 12;}
+	//These lines ensure you have two-digits
+	if (hh < 10) {hh = "0"+hh;}
+	if (mm < 10) {mm = "0"+mm;}
+	if (ss < 10) {ss = "0"+ss;}
+	//This formats your string to HH:MM:SS
+	var t = hh+":"+mm+":"+ss;
+	console.log(t);
+	return t;
+}
+</script>
 </body>
 </html>

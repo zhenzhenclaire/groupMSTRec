@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Contact</title>
+<title>Log in</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Eatery Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -50,20 +50,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 	   <div class="contact-form">
 				<div class="col-md-6 contact-grid">
-					<h3>Join group</h3>
+					<h3>Log in</h3>
 					<form>
-						<p class="your-para">Group ID</p>
-						<input type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
-						<p class="your-para">Departure time</p>
-						<input type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
-						<p class="your-para">Mode</p>
-						<select name="mode">
-							<option value="1">Drive</option>
-							<option value="1">Bus</option>
-							<option value="1">Walk</option>
-						</select>
+						<p class="your-para">Your username</p>
+						<input id="user" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+						<p class="your-para">Your password:</p>
+						<input id="password" type="password" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+						<p class="your-para"><input id="isGroupOwner" type="checkbox" value="true"> I'm a group owner.</p>
+						<p class="your-para"></p>
 						<div class="send">
-							<input type="submit" value="Join">
+							<input id="loginButton" type="button" value="Send">
 						</div>
 					</form>
 				</div>
@@ -113,5 +109,48 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 </div>
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$("#loginButton").click(function() {
+    //$("#request-process-patent").html("Submitting...");
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/rec/login",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(GetJsonData()),
+        dataType: "json",
+        success: function (result) {
+	        //alert("success");
+	        //alert(JSON.stringify(result));
+        	//alert("isGroupOwner: " + JSON.stringify(result.isGroupOwner));
+        	//console.log("isGroupOwner: " + JSON.stringify(result.isGroupOwner));
+        	if(result.isGroupOwner == "true") {
+        		//alert("move to createGroup page");
+        		location.href="createGroup.html?user=" + $("#user").val();
+        		
+        	} else {
+        		//alert("move to joinGroup page");
+        		location.href="joinGroup.html?user=" + $("#user").val();
+        	}
+        },
+        error: function (message) {
+        	alert("Log in failed");
+            //$("#request-process-patent").html("Failed");
+        }
+    });
+});
+
+function GetJsonData() {
+    var json = {
+        "user": $("#user").val(),
+        "password": $("#password").val(),
+        "isGroupOwner": $("#isGroupOwner").is(':checked')?"true":"false"
+        
+    };
+    //alert("checked: " + $("#isGroupOwner").is(':checked'));
+    //alert("data to submit: " + JSON.stringify(json));
+    return json;
+}
+
+</script>
 </body>
 </html>		
