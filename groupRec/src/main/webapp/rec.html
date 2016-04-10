@@ -165,9 +165,22 @@ function showGroup2(json, target){
 		  for(var i=0,L=json.length;i<L;i++){
 			  //console.log(json[i].travelTime);
 			  //console.log(getTime(json[i].travelTime));
+			  
+			  	var transportMode;
+	    		switch (json[i].transportMode) {
+	    		case 'DRIVING':
+	    			transportMode = google.maps.TravelMode.DRIVING;
+	    		break;
+	    		case 'BICYCLING':
+	    			transportMode = google.maps.TravelMode.BICYCLING;
+	    		break;
+	    		case 'WALKING':
+	    			transportMode = google.maps.TravelMode.WALKING;
+	    		break;
+	    		}
 			    
 			    getTravelInfo(json[i].name, getLatLngFromString(json[i].location), 
-			    getLatLngFromString(target.location), google.maps.DirectionsTravelMode.DRIVING, function(result){
+			    getLatLngFromString(target.location), transportMode, function(result){
 			        //console.log(result);
 			    	//$('#' + json[i].name).html(result);
 			    });
@@ -178,7 +191,7 @@ function getTravelInfo(username, start, end, mode, callback) {
 	var request = {
 		    origin: start, // LatLng|string
 		    destination: end, // LatLng|string
-		    travelMode: google.maps.DirectionsTravelMode.DRIVING
+		    travelMode: mode
 		};
 	var directionsService = new google.maps.DirectionsService();
 
