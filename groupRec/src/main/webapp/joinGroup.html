@@ -13,6 +13,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- Custom Theme files -->
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <!-- Custom Theme files -->
+<link href="css/bootstrap-datetimepicker.css" rel='stylesheet' type='text/css' />
+
 </head>
 <body>
 <!--banner-->
@@ -55,7 +57,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<p class="your-para">Group ID</p>
 						<input id="groupID" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
 						<p class="your-para">Departure time</p>
+						<div class="form-group">
+							<div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="departureTime">
+			                    <input type="text" value="" readonly />
+			                    <span class="input-group-addon date form_datetime"><span class="glyphicon glyphicon-remove"></span></span>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+	               			</div>
+	               		</div>
+						<input type="hidden" id="departureTime" value="" />						
+						<!-- 
 						<input id="departureTime" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+						 -->
 						<p class="your-para">Mode</p>
 						<select id="mode" name="mode">
 							<option value="driving">Drive</option>
@@ -113,6 +125,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 </div>
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/locales/bootstrap-datetimepicker.ua.js" charset="UTF-8"></script>
 <script type="text/javascript">
 // Get group ID from REST and show on page
 $.ajax({
@@ -160,7 +174,7 @@ function GetJsonData() {
         "user": GetQueryString("user")
         
     };
-    alert("data to submit: " + JSON.stringify(json));
+    //alert("data to submit: " + JSON.stringify(json));
     return json;
 }
 
@@ -170,7 +184,18 @@ function GetQueryString(name)
      var r = window.location.search.substr(1).match(reg);
      if(r!=null)return  unescape(r[2]); return null;
 }
-
+var today = new Date();
+$('.form_datetime').datetimepicker({
+    //language:  'fr',
+    weekStart: 1,
+    todayBtn:  1,
+	autoclose: 1,
+	todayHighlight: 1,
+	startView: 2,
+	forceParse: 0,
+    showMeridian: 1,
+    startDate: today
+});
 </script>
 </body>
 </html>		
