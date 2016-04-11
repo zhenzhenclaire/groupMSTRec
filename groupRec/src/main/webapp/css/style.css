@@ -673,15 +673,14 @@ small.testi-meta:before {
 }
 .service_grid_1 p{
   color: #888;
-  font-size: 0.8125em;
-  line-height: 1.8em;
+  font-size: 1em;
 }
 .txt_1{
 	margin-bottom:2em;
 }
 .txt_2{
-    margin-top:2em;
- 	margin-bottom:2em;
+    margin-top:1em;
+ 	margin-bottom:1em;
  }
 .box_3{
   background: url(../images/3.jpg) center top no-repeat;
@@ -784,8 +783,8 @@ p.para1{
 }
 p.your-para {
   color: #9A9898;
-  margin: 1em;
-  font-size: 13px;
+  margin: 0.5em;
+  font-size: 20px;
 }
 /* --responsive design --*/
 @media(max-width:1366px){

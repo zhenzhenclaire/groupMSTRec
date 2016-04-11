@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Contact</title>
+<title>Group information</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Eatery Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -51,9 +51,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	   <div class="contact-form">
 				<div class="col-md-12 contact-grid">
 					<h3>Group Information</h3>
-					
-										
-					<p id="groupInfo"></p>
+					<h3 id="groupInfo"></h3>
 					<p id="group1"></p>
 					<div id="table1"></div>
 					<div class="send">
@@ -102,8 +100,7 @@ function updateGroupList() {
 		    contentType: "application/json; charset=utf-8",
 		    success: function (data) {
 		        //alert(JSON.stringify(data.groupID));
-		    	$("#groupInfo").html("Group ID: " + JSON.stringify(data.id));
-		    	$("#group").html("Group: " + JSON.stringify(data));
+		    	$("#groupInfo").html("Group id: " + JSON.stringify(data.id));
 		    	totalNumberOfMembersInGroup = data.numberOfMembers;
 		    	console.log("number: " + totalNumberOfMembersInGroup);
 		    	currentNumberOfMembersInGroup = eval(data.members).length;
