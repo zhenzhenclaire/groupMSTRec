@@ -673,15 +673,14 @@ small.testi-meta:before {
 }
 .service_grid_1 p{
   color: #888;
-  font-size: 0.8125em;
-  line-height: 1.8em;
+  font-size: 1em;
 }
 .txt_1{
 	margin-bottom:2em;
 }
 .txt_2{
-    margin-top:2em;
- 	margin-bottom:2em;
+    margin-top:1em;
+ 	margin-bottom:1em;
  }
 .box_3{
   background: url(../images/3.jpg) center top no-repeat;
@@ -712,10 +711,17 @@ small.testi-meta:before {
 	width:100%;
 	min-height:350px;
 }
-.contact-grid input[type="text"],.contact-grid select,.contact-grid input[type="password"],.contact-grid textarea{
+.contact-grid input[type="text"], .contact-grid select,.contact-grid input[type="password"],.contact-grid textarea{
 	width: 100%;
     padding: 1em;
-    margin: 1em 0;
+    background: #fff;
+    outline: none;
+    border: 1px solid #DADADA;
+    -webkit-appearance: none;
+}
+.numberInput{
+	width: 100%;
+    padding: 1em;
     background: #fff;
     outline: none;
     border: 1px solid #DADADA;
@@ -777,8 +783,8 @@ p.para1{
 }
 p.your-para {
   color: #9A9898;
-  margin: 0;
-  font-size: 13px;
+  margin: 0.5em;
+  font-size: 20px;
 }
 /* --responsive design --*/
 @media(max-width:1366px){

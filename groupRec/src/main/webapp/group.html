@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Contact</title>
+<title>Group information</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Eatery Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -36,7 +36,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav navbar-right">
 								<li><a href="index.html">Home</a></li>
-								<li><a href="login.html" class="active">Log in</a></li>
+								<li><a href="login.html" class="active">Log out</a></li>
 							</ul>	
 						</div>	
 						<div class="clearfix"> </div>
@@ -51,9 +51,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	   <div class="contact-form">
 				<div class="col-md-12 contact-grid">
 					<h3>Group Information</h3>
-					
-										
-					<p id="groupInfo"></p>
+					<h3 id="groupInfo"></h3>
 					<p id="group1"></p>
 					<div id="table1"></div>
 					<div class="send">
@@ -68,20 +66,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="footer">
 	<div class="container">
 	    <div class="col-md-6 col_2">
+			<!--
 		  <ul><li><h5>Tuesday to Friday</h5><p>Lunch: <span>12pm – 03pm</span></p><p>Dinner: <span>05pm – 10pm</span></p></li>
 		    <li><h5>Saturday &amp; Sunday</h5><p>Lunch: <span>11pm – 05pm</span></p><p>Dinner: <span>04pm – 11pm</span></p></li>
 		  </ul>
+			-->
 		</div>
 		<div class="col-md-6 col_3">
 		  <div class="col_3">
 		  <ul class="menu">
             <li><a href="#">Home</a></li> |
-            <li><a href="#">About</a></li> |
-            <li><a href="#">Services</a></li> |
-            <li><a href="#">Gallery</a></li> |
-            <li><a href="#">Contact</a></li>
+            <li><a href="#">Group</a></li> |
+            <li><a href="#">Recommendation</a></li>
 		  </ul>
-		   <p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网站模板" target="_blank">网站模板</a></p>
+		   <p>Copyright &copy; 2016. All rights reserved.</p>
          </div>
 		</div>
 		<div class="clearfix"> </div>
@@ -102,8 +100,7 @@ function updateGroupList() {
 		    contentType: "application/json; charset=utf-8",
 		    success: function (data) {
 		        //alert(JSON.stringify(data.groupID));
-		    	$("#groupInfo").html("Group ID: " + JSON.stringify(data.id));
-		    	$("#group").html("Group: " + JSON.stringify(data));
+		    	$("#groupInfo").html("Group id: " + JSON.stringify(data.id));
 		    	totalNumberOfMembersInGroup = data.numberOfMembers;
 		    	console.log("number: " + totalNumberOfMembersInGroup);
 		    	currentNumberOfMembersInGroup = eval(data.members).length;

@@ -52,11 +52,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-md-6 contact-grid">
 					<h3>Log in</h3>
 					<form>
-						<p class="your-para">Your username</p>
+						<p class="your-para">Your username:</p>
 						<input id="user" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
 						<p class="your-para">Your password:</p>
 						<input id="password" type="password" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
 						<p class="your-para"><input id="isGroupOwner" type="checkbox" value="true"> I'm a group owner.</p>
+						    
+						
 						<p class="your-para"></p>
 						<div class="send">
 							<input id="loginButton" type="button" value="Send">
@@ -64,22 +66,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</form>
 				</div>
 				<div class="col-md-6 contact-in">
-					<h3>Contact Information</h3>
-					<p class="sed-para"> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolor.</p>
-					<p class="para1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.  </p>
-					<div class="more-address"> 
-						<div class="address-more">
-							<p>The company name,</p>
-							<p>Lorem ipsum dolor,</p>
-							<p>Glasglow Dr 40 Fe 72. </p>
-						</div>
-						<div class="address-left">
-							<p>Tel : 1115550001</p>
-							<p>Fax : 190-4509-494</p>
-							<p><a href="malito:mail@demolink.org">mail(at)Eatery.com</a></p>
-						</div>
-						<div class="clearfix"> </div>
-				      </div>
+					<h3>Group Recommendation</h3>
+					<p class="sed-para">
+					The Research and Implementation of Large-scale Real-time News Recommendation Algorithm
+					
+					</p>
+					<p class="para1">
+					With the development of society, social activities have become an indispensable part of people's lives. However, people in the big cities live far apart, and their preferences will also be different. Busy work make each individual schedules vary a lot. All of these make people encounter a variety of problems when they make the choice of meeting place. The ideal venues should not only be able to meet everyone's preference, but also meet their own time schdules. Therefore, how to satisfy the characteristics of the group to choose a meeting place while considering the above factors has become a focus of research content.
+					
+					</p>
 				</div>
 				<div class="clearfix"> </div>
 	  </div>
@@ -88,26 +83,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="box_3"> </div>
 <div class="footer">
 	<div class="container">
-	    <div class="col-md-6 col_2">
+		<div class="col-md-6 col_2">
+			<!--
 		  <ul><li><h5>Tuesday to Friday</h5><p>Lunch: <span>12pm – 03pm</span></p><p>Dinner: <span>05pm – 10pm</span></p></li>
 		    <li><h5>Saturday &amp; Sunday</h5><p>Lunch: <span>11pm – 05pm</span></p><p>Dinner: <span>04pm – 11pm</span></p></li>
 		  </ul>
+			-->
 		</div>
 		<div class="col-md-6 col_3">
-		  <div class="col_3">
-		  <ul class="menu">
-            <li><a href="#">Home</a></li> |
-            <li><a href="#">About</a></li> |
-            <li><a href="#">Services</a></li> |
-            <li><a href="#">Gallery</a></li> |
-            <li><a href="#">Contact</a></li>
-		  </ul>
-		   <p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网站模板" target="_blank">网站模板</a></p>
-         </div>
+			<div class="col_3">
+				<ul class="menu">
+					<li><a href="#">Home</a></li> |
+					<li><a href="#">Group</a></li> |
+					<li><a href="#">Recommendation</a></li>
+				</ul>
+				<p>Copyright &copy; 2016. All rights reserved.</p>
+			</div>
 		</div>
 		<div class="clearfix"> </div>
 	</div>
 </div>
+
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$("#loginButton").click(function() {
@@ -150,7 +146,6 @@ function GetJsonData() {
     //alert("data to submit: " + JSON.stringify(json));
     return json;
 }
-
 </script>
 </body>
 </html>		

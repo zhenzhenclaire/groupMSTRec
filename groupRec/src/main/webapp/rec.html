@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>About</title>
+	<title>Recommendation</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Eatery Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
@@ -36,7 +36,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="index.html">Home</a></li>
-							<li><a href="login.html" class="active">Log in</a></li>
+							<li><a href="login.html" class="active">Log out</a></li>
 						</ul>
 					</div>
 					<div class="clearfix"> </div>
@@ -50,28 +50,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 		<h1>What we recommended</h1>
 		<div id="groupDIV" class="col-md-4 box_2">
-		<!-- 
-			<div class="service_grid_1 txt_1">
-				<h4>User 1</h4>
-				<p>Distance 15km, time needed 30 mins</p>
-			</div>
-			<div class="service_grid_1">
-				<h4>User 2</h4>
-				<p>Distance 15km, time needed 30 mins</p>
-			</div>
-			<div class="service_grid_1 txt_2">
-				<h4>User 3</h4>
-				<p>Distance 15km, time needed 30 mins</p>
-			</div>
-			<div class="service_grid_1">
-				<h4>User 4</h4>
-				<p>Distance 15km, time needed 30 mins</p>
-			</div>
-			<div class="service_grid_1 txt_2">
-				<h4>User 5</h4>
-				<p>Distance 15km, time needed 30 mins</p>
-			</div>
-			 -->
 		</div>
 		<div class="col-md-8 box_2">
 			<div class="map">
@@ -87,20 +65,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="footer">
 	<div class="container">
 		<div class="col-md-6 col_2">
-			<ul><li><h5>Tuesday to Friday</h5><p>Lunch: <span>12pm – 03pm</span></p><p>Dinner: <span>05pm – 10pm</span></p></li>
-				<li><h5>Saturday &amp; Sunday</h5><p>Lunch: <span>11pm – 05pm</span></p><p>Dinner: <span>04pm – 11pm</span></p></li>
-			</ul>
+			<!--
+		  <ul><li><h5>Tuesday to Friday</h5><p>Lunch: <span>12pm – 03pm</span></p><p>Dinner: <span>05pm – 10pm</span></p></li>
+		    <li><h5>Saturday &amp; Sunday</h5><p>Lunch: <span>11pm – 05pm</span></p><p>Dinner: <span>04pm – 11pm</span></p></li>
+		  </ul>
+			-->
 		</div>
 		<div class="col-md-6 col_3">
 			<div class="col_3">
 				<ul class="menu">
 					<li><a href="#">Home</a></li> |
-					<li><a href="#">About</a></li> |
-					<li><a href="#">Services</a></li> |
-					<li><a href="#">Gallery</a></li> |
-					<li><a href="#">Contact</a></li>
+					<li><a href="#">Group</a></li> |
+					<li><a href="#">Recommendation</a></li>
 				</ul>
-				<p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网站模板" target="_blank">网站模板</a></p>
+				<p>Copyright &copy; 2016. All rights reserved.</p>
 			</div>
 		</div>
 		<div class="clearfix"> </div>
@@ -115,8 +93,6 @@ $.ajax({
     contentType: "application/json; charset=utf-8",
     success: function (data) {
         //alert(JSON.stringify(data.groupID));
-    	$("#groupInfo").html("Group ID: " + JSON.stringify(data.id));
-    	$("#group").html("Group: " + JSON.stringify(data));
     	showGroup(data.members,data.recommendation);
     	showGroup2(data.members,data.recommendation);
     	//showGroupWithRealtimeGoogleService(data.members, data.recommendation);
@@ -146,14 +122,14 @@ function showGroup(json, target){
 		  for(var i=0,L=json.length;i<L;i++){
 			  //console.log(json[i].travelTime);
 			  //console.log(getTime(json[i].travelTime));
-			    htmls.push('<div class="service_grid_1 txt_2"><h4>'+json[i].name+'</h4><p id=' + json[i].name + '></p></div>');
+			    htmls.push('<div class="service_grid_1 txt_2"><h3>'+json[i].name+'</h3><p id=' + json[i].name + '></p></div>');
 // 			    htmls.push(getTime(parseInt(json[i].travelTime))); 
 //			    htmls.push('</p></div>');
 
 //			    getTravelInfo(json[i].name, getLatLngFromString(json[i].location), 
 //			    getLatLngFromString(target.location), google.maps.DirectionsTravelMode.DRIVING, function(result){
 //			        console.log(result);
-			    });
+//			    });
 			    
 			    
 			  }

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Contact</title>
+<title>Create Group</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Eatery Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -12,6 +12,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="js/jquery.min.js"></script>
 <!-- Custom Theme files -->
 <link href="css/style.css" rel='stylesheet' type='text/css' />
+<link href="css/bootstrap-datetimepicker.css" rel='stylesheet' type='text/css' />
+
 <!-- Custom Theme files -->
 </head>
 <body>
@@ -36,7 +38,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav navbar-right">
 								<li><a href="index.html">Home</a></li>
-								<li><a href="login.html" class="active">Log in</a></li>
+								<li><a href="login.html" class="active">Log out</a></li>
 							</ul>	
 						</div>	
 						<div class="clearfix"> </div>
@@ -46,20 +48,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>	
 	</div>
 <!--//banner-->
+
+
 <div class="about_top">
 	<div class="container">
 	   <div class="contact-form">
 				<div id="createGroupDIV" class="col-md-12 contact-grid">
 					<h3>Create group</h3>
+					<h3 id="h3"></h3>
 					<form>
 						<p id="groupInfo" class="your-para" ></p>
 						<p class="your-para">Gathering Time:</p>
-						<input id="gatheringTime" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+						<div class="form-group">
+							<div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="gatheringTime">
+			                    <input type="text" value="" readonly />
+			                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+	               			</div>
+	               		</div>
+						<input type="hidden" id="gatheringTime" value="" />
+						<!-- 
+						<input id="gatheringTime1" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+						 -->
 						<p class="your-para">Number of users:</p>
-						<input id="numberOfUsers" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+						<input id="numberOfUsers" type="number" class="numberInput" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
 						<p class="your-para">Departure Time:</p>
+						<div class="form-group">
+							<div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="departureTime">
+			                    <input type="text" value="" readonly />
+			                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+	               			</div>
+	               		</div>
+						<input type="hidden" id="departureTime" value="" />						
+						<!-- 
 						<input id="departureTime" type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
-						<p class="your-para">Mode</p>
+						 -->
+						<p class="your-para">Mode:</p>
 						<select id="mode" name="mode">
 							<option value="driving">Drive</option>
 							<option value="bicycling">Bicycling</option>
@@ -72,8 +95,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</form>
 				</div>
 				
-				<div id="groupInfoDIV" class="col-md-12 contact-grid" style="display:block;">
+				<div id="groupInfoDIV" class="col-md-12 contact-grid" style="display:none;">
 					<h3>Group Information</h3>
+					<h3 id="h3_groupInfo"></h3>
 					
 										
 					<p id="groupInfo1"></p>
@@ -83,32 +107,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<input id="recommendButton" type="button" value="Recommend" disabled/>
 					</div>
 				<div class="clearfix"> </div>
+				</div>
 	  </div>
   </div>
 </div>
 <div class="footer">
 	<div class="container">
-	    <div class="col-md-6 col_2">
+		<div class="col-md-6 col_2">
+			<!--
 		  <ul><li><h5>Tuesday to Friday</h5><p>Lunch: <span>12pm – 03pm</span></p><p>Dinner: <span>05pm – 10pm</span></p></li>
 		    <li><h5>Saturday &amp; Sunday</h5><p>Lunch: <span>11pm – 05pm</span></p><p>Dinner: <span>04pm – 11pm</span></p></li>
 		  </ul>
+			-->
 		</div>
 		<div class="col-md-6 col_3">
-		  <div class="col_3">
-		  <ul class="menu">
-            <li><a href="#">Home</a></li> |
-            <li><a href="#">About</a></li> |
-            <li><a href="#">Services</a></li> |
-            <li><a href="#">Gallery</a></li> |
-            <li><a href="#">Contact</a></li>
-		  </ul>
-		   <p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网站模板" target="_blank">网站模板</a></p>
-         </div>
+			<div class="col_3">
+				<ul class="menu">
+					<li><a href="#">Home</a></li> |
+					<li><a href="#">Group</a></li> |
+					<li><a href="#">Recommendation</a></li>
+				</ul>
+				<p>Copyright &copy; 2016. All rights reserved.</p>
+			</div>
 		</div>
 		<div class="clearfix"> </div>
 	</div>
 </div>
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/locales/bootstrap-datetimepicker.ua.js" charset="UTF-8"></script>
+
 <script type="text/javascript">
 
 var totalNumberOfMembersInGroup = 0;
@@ -120,8 +148,10 @@ $.ajax({
     contentType: "application/json; charset=utf-8",
     success: function (data) {
         //alert(JSON.stringify(data.groupID));
-    	$("#groupInfo").html("Group ID: " + JSON.stringify(data.id));
-    	$("#groupInfo1").html("Group ID: " + JSON.stringify(data.id));
+    	//$("#groupInfo").html("Group ID: " + JSON.stringify(data.id));
+    	$("#h3").html("Group id: " + JSON.stringify(data.id));
+    	//$("#groupInfo1").html("Group ID: " + JSON.stringify(data.id));
+    	$("#h3_groupInfo").html("Group id: " + JSON.stringify(data.id));
     	totalNumberOfMembersInGroup = data.numberOfMembers;
     	console.log("number: " + totalNumberOfMembersInGroup);
     },
@@ -186,8 +216,9 @@ setInterval(function() {
 		    contentType: "application/json; charset=utf-8",
 		    success: function (data) {
 		        //alert(JSON.stringify(data.groupID));
-		    	$("#groupInfo").html("Group ID: " + JSON.stringify(data.id));
-		    	$("#group").html("Group: " + JSON.stringify(data));
+		    	//$("#group").html("Group: " + JSON.stringify(data));
+		    	//$("#h3_groupInfo").html("Group Information, group id: " + JSON.stringify(data.id));
+    	
 		    	showGroup(data.members);
 		    	var users = data.members;
 		    	//alert(eval(users).length);
@@ -280,6 +311,18 @@ function GetRightJsonData() {
     //alert("data to submit: " + JSON.stringify(json));
     return json;
 }
+var today = new Date();
+$('.form_datetime').datetimepicker({
+    //language:  'fr',
+    weekStart: 1,
+    todayBtn:  1,
+	autoclose: 1,
+	todayHighlight: 1,
+	startView: 2,
+	forceParse: 0,
+    showMeridian: 1,
+    startDate: today
+});
 </script>
 </body>
 </html>		
