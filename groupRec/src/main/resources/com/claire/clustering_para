@@ -1,0 +1,7 @@
+Item_clustering,
+"business_id","review_count","state","stars","Take-out","Drive-Thru","Caters","Noise Level","Has TV","Outdoor Seating","Alcohol","Waiter Service","Good for Kids","Good For Groups","Price Range",
+"5UmKMjUEUNdYWqANhGckJw",4,"PA",4.5,true,false,false,"average",false,false,"none",false,true,true,1
+
+User_clustering,
+"user_id","funny","useful","cool", "review_count","fans","average_stars",
+"18kPq7GPye-YQ3LyKyAZPw",167,280,245,108,70,4.14
