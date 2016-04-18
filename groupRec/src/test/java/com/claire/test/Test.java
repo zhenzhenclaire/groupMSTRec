@@ -1,7 +1,9 @@
 package com.claire.test;
 
+import com.claire.dao.ItemDao;
 import com.claire.dao.ReviewDao;
 import com.claire.dao.UserDao;
+import com.claire.daoImpl.ItemDaoImpl;
 import com.claire.daoImpl.ReviewDaoImpl;
 import com.claire.daoImpl.UserDaoImpl;
 import com.claire.util.Config;
@@ -14,11 +16,13 @@ public class Test {
 	public static void main(String[] args) {
 
 		Config config = new Config();
-        makeRatingFile();
+
         //testGetOriginalId(4);
         //testGetReflectedId("fHtTaujcyKvXglE33Z5yIw");
-        //makeReflection();
+        makeUserReflection();
+		makeItemReflection();
 		//testReg();
+		makeRatingFile();
 
 //		String line = "\"user_id\": \"Iu6AxdBYGR4A0wspR9BYHA\", \"review_id\": \"KPvLNJ21_4wbYNctrOwWdQ\", \"stars\": 5, \"date\": \"2014-02-13\", \"text\": \"Excellent food. Superb customer service. I miss the mario machines they used to have, but it's still a great place steeped in tradition.\", \"type\": \"review\", \"business_id\": \"5UmKMjUEUNdYWqANhGckJw\"}";
 //        String reg1 = "\"user_id\": \"(.*)\", \"review_id\"";
@@ -52,7 +56,12 @@ public class Test {
         rd.makeRatingFile();
     }
 
-	public static void makeReflection(){
+	public static void makeItemReflection(){
+		ItemDao itemDao = new ItemDaoImpl();
+		itemDao.makeItemReflectionTable();
+	}
+
+	public static void makeUserReflection(){
 		UserDao ui = new UserDaoImpl();
 		ui.makeUserReflectionTable();
 	}
@@ -68,19 +77,5 @@ public class Test {
 		UserDao ui = new UserDaoImpl();
 		String uid = ui.getOriginalId(reflectedUid);
 		System.out.println("OriginalId for " + reflectedUid + " is:" + uid);
-	}
-
-
-	public static void testReg() {
-		String userFile = "/Users/jiangnan/Documents/groupMSTRec/groupRec/src/test/java/com/claire/test/user.txt";
-		String reg = "\"user_id\": \"([^\"]*)\"";
-		String reg1 = "\"user_id\": \"(.*)\"";
-
-        ArrayList<String> userList = FileProcess.readFileByLines(userFile, reg);
-		for (int i = 0; i < userList.size(); i++) {
-			System.out.println(userList.get(i) + ",");
-			
-		}
-
 	}
 }

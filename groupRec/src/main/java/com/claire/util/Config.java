@@ -34,7 +34,7 @@ public class Config {
     public static List<String> distanceList;
     public static List<Long> travelTimeList; 
     
-    public static String filePath = "conf/config.properties";
+    public static String filePath = "groupRec/conf/config.properties";
     
     private static Config instance =null;  
 
