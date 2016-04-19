@@ -6,7 +6,7 @@ import java.io.PrintWriter
 
 object MyKMeans {
 	def main(args: Array[String]) {
-		System.setProperty("hadoop.home.dir", "C:\\Users\\wyq\\Desktop\\spark\\hadoop");
+		//System.setProperty("hadoop.home.dir", "C:\\Users\\wyq\\Desktop\\spark\\hadoop");
 		val conf = new SparkConf().setAppName("k-means").setMaster("local[*]")
 		val sc = new SparkContext(conf)
 
