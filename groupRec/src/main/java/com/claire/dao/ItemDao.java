@@ -10,6 +10,8 @@ public interface ItemDao {
 
     void makeItemReflectionTable();
 
+    void makeItemClusteringData();
+
     int getReflectedId(String rid);
 
     String getOriginalId(int reflectedRid);

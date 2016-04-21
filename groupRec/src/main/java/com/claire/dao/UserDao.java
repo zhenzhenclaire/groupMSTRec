@@ -9,6 +9,8 @@ public interface UserDao {
 
     void makeUserReflectionTable();
 
+    void makeUserClusteringData();
+
     int getReflectedId(String uid);
 
     String getOriginalId(int reflectedUid);
@@ -16,5 +18,5 @@ public interface UserDao {
     User findUserByUid(String uid);
 
     void generateUserList();
-	
+
 }

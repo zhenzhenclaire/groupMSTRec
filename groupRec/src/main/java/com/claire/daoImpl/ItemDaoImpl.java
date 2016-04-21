@@ -17,6 +17,7 @@ public class ItemDaoImpl implements ItemDao {
     static Logger logger = Logger.getLogger("ItemDaoImpl");
     String itemFile = Config.itemFile;
     String itemReflectionTable = Config.itemReflectionTable;
+    String itemClusteringData = Config.itemClusteringData;
 
     public static Map<String, String> itemListById;
     public static Map<String, String> itemListByName;
@@ -44,6 +45,48 @@ public class ItemDaoImpl implements ItemDao {
         FileProcess.writeToFile(itemReflectionList, itemReflectionTable);
         logger.info("Done.");
     }
+
+    @Override
+    public void makeItemClusteringData() {
+        logger.info("Start preparing item clustering data.");
+        // read from dataPath/userFile
+		/*
+	     * line 1: {"business_id": "5UmKMjUEUNdYWqANhGckJw", "full_address": "4734 Lebanon Church Rd\nDravosburg, PA 15034", "hours": {"Friday": {"close": "21:00", "open": "11:00"}, "Tuesday": {"close": "21:00", "open": "11:00"}, "Thursday": {"close": "21:00", "open": "11:00"}, "Wednesday": {"close": "21:00", "open": "11:00"}, "Monday": {"close": "21:00", "open": "11:00"}}, "open": true, "categories": ["Fast Food", "Restaurants"], "city": "Dravosburg", "review_count": 4, "name": "Mr Hoagie", "neighborhoods": [], "longitude": -79.9007057, "state": "PA", "stars": 4.5, "latitude": 40.3543266, "attributes": {"Take-out": true, "Drive-Thru": false, "Good For": {"dessert": false, "latenight": false, "lunch": false, "dinner": false, "brunch": false, "breakfast": false}, "Caters": false, "Noise Level": "average", "Takes Reservations": false, "Delivery": false, "Ambience": {"romantic": false, "intimate": false, "classy": false, "hipster": false, "divey": false, "touristy": false, "trendy": false, "upscale": false, "casual": false}, "Parking": {"garage": false, "street": false, "validated": false, "lot": false, "valet": false}, "Has TV": false, "Outdoor Seating": false, "Attire": "casual", "Alcohol": "none", "Waiter Service": false, "Accepts Credit Cards": true, "Good for Kids": true, "Good For Groups": true, "Price Range": 1}, "type": "business"}
+	     * Item_clustering,
+	     * "business_id","review_count","state","stars","Take-out","Drive-Thru","Caters","Noise Level","Has TV","Outdoor Seating","Alcohol","Waiter Service","Good for Kids","Good For Groups","Price Range",
+	     * "5UmKMjUEUNdYWqANhGckJw",4,"PA",4.5,true,false,false,"average",false,false,"none",false,true,true,1
+	     */
+        String[] regs = new String[5];
+        regs[0] = "\"business_id\": \"(.*)\", \"full_address\"";
+        regs[1] = "\"review_count\": (.*), \"name\"";
+        regs[2] = "\"state\": \"(.*)\", \"stars\"";
+        regs[3] = "\"stars\": (.*), \"latitude\"";
+
+        //regs[4] = "\"Take-out\": (.*), \"Drive-Thru\"";
+        regs[4] = "\"Drive-Thru\": (.*), \"Good For\"";
+        //regs[6] = "\"Caters\": (.*), \"Noise Level\"";
+        //regs[7] = "\"Noise Level\": \"(.*)\", \"Takes Reservations\"";
+        //regs[8] = "\"Has TV\": (.*), \"Outdoor Seating\"";
+        //regs[9] = "\"Outdoor Seating\": (.*), \"Attire\"";
+        //regs[10] = "\"Alcohol\": \"(.*)\", \"Waiter Service\"";
+        //regs[11] = "\"Good for Kids\": (.*), \"Good For Groups\"";
+        //regs[12] = "\"Good For Groups\": (.*), \"Price Range\"";
+        //regs[3] = "\"Price Range\": (.*)}, \"type\"";
+
+
+        ArrayList<String> itemList = FileProcess.readFileByLines(itemFile, regs);
+        ArrayList<String> itemClusteringList = new ArrayList<String>();
+
+        // Generate userid <int>
+        for(int i = 1;i <= itemList.size();i++){
+            itemClusteringList.add(itemList.get(i - 1) + "\n");
+        }
+
+        // Generate userid <String> TAB userid <int> userReflectionTable
+        FileProcess.writeToFile(itemClusteringList,itemClusteringData);
+        logger.info("Done.");
+    }
+
 
     @Override
     public int getReflectedId(String rid) {
