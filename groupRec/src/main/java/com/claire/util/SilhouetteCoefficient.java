@@ -83,7 +83,7 @@ public class SilhouetteCoefficient {
         try {
             while ((line = br.readLine()) != null) {
                 line = line.replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\\(", "").replaceAll("\\)", "");
-                System.out.println(line);
+                //System.out.println(line);
                 String[] strs = line.split(",");
                 double[] vec = new double[strs.length];
                 for (int i = 0; i < strs.length; i++) {
@@ -97,5 +97,15 @@ public class SilhouetteCoefficient {
 
         //System.out.println("data len: " + list.size());
         return calc(list, k);
+    }
+
+    public static void main(String[] args){
+        SilhouetteCoefficient silhouetteCoefficient = new SilhouetteCoefficient();
+        try {
+            Double d = silhouetteCoefficient.calcFromFile("/home/claire/IdeaProjects/groupMSTRec/data/clustering/userClusteringResult/user_result.txt",3);
+            System.out.print(d);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

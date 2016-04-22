@@ -55,24 +55,26 @@ public class ItemDaoImpl implements ItemDao {
 	     * Item_clustering,
 	     * "business_id","review_count","state","stars","Take-out","Drive-Thru","Caters","Noise Level","Has TV","Outdoor Seating","Alcohol","Waiter Service","Good for Kids","Good For Groups","Price Range",
 	     * "5UmKMjUEUNdYWqANhGckJw",4,"PA",4.5,true,false,false,"average",false,false,"none",false,true,true,1
+	     * Changed item_clustering:
+	     * "business_id","review_count","state","stars","Caters","Noise Level","Outdoor Seating","Alcohol","Waiter Service","Good for Kids","Good For Groups","Price Range",
+	     * "5UmKMjUEUNdYWqANhGckJw",4,"PA",4.5,false,"average",false,"none",false,true,true,1
 	     */
-        String[] regs = new String[5];
+        String[] regs = new String[11];
         regs[0] = "\"business_id\": \"(.*)\", \"full_address\"";
         regs[1] = "\"review_count\": (.*), \"name\"";
         regs[2] = "\"state\": \"(.*)\", \"stars\"";
         regs[3] = "\"stars\": (.*), \"latitude\"";
 
         //regs[4] = "\"Take-out\": (.*), \"Drive-Thru\"";
-        regs[4] = "\"Drive-Thru\": (.*), \"Good For\"";
-        //regs[6] = "\"Caters\": (.*), \"Noise Level\"";
-        //regs[7] = "\"Noise Level\": \"(.*)\", \"Takes Reservations\"";
-        //regs[8] = "\"Has TV\": (.*), \"Outdoor Seating\"";
-        //regs[9] = "\"Outdoor Seating\": (.*), \"Attire\"";
-        //regs[10] = "\"Alcohol\": \"(.*)\", \"Waiter Service\"";
-        //regs[11] = "\"Good for Kids\": (.*), \"Good For Groups\"";
-        //regs[12] = "\"Good For Groups\": (.*), \"Price Range\"";
-        //regs[3] = "\"Price Range\": (.*)}, \"type\"";
-
+//        regs[4] = "\"Drive-Thru\": (.*), \"Good For\"";
+        regs[4] = "\"Caters\": (.*), \"Noise Level\"";
+        regs[5] = "\"Noise Level\": \"(.*)\", \"Takes Reservations\"";
+//        regs[6] = "\"Has TV\": (.*), \"Outdoor Seating\"";
+        regs[6] = "\"Outdoor Seating\": (.*), \"Attire\"";
+        regs[7] = "\"Alcohol\": \"(.*)\", \"Waiter Service\"";
+        regs[8] = "\"Good for Kids\": (.*), \"Good For Groups\"";
+        regs[9] = "\"Good For Groups\": (.*), \"Price Range\"";
+        regs[10] = "\"Price Range\": (.*)}, \"type\"";
 
         ArrayList<String> itemList = FileProcess.readFileByLines(itemFile, regs);
         ArrayList<String> itemClusteringList = new ArrayList<String>();

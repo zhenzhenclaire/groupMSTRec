@@ -42,6 +42,10 @@ public class FileProcess {
 		try {
 			writer = new BufferedWriter(new FileWriter(file));
 			for(String str:strs){
+				/*
+				Only for item Clustering to escape some invalid data line.
+				 */
+				if(str.split(",").length > 11)	continue;
 				writer.write(str);
 			}
 			writer.flush();
@@ -151,16 +155,12 @@ public class FileProcess {
 					rss[i] = mats[i].find();
 				}
 
-				boolean matCount = true;
-				boolean matGroup = true;
 				boolean rs = true;
 				boolean result = true;
 
 				for(int i = 0;i < num_of_regs;i++){
-					if(rs && matCount && matGroup){
+					if(rs){
 						rs = rs && rss[i];
-						matCount = matCount && (mats[i].groupCount() == 1);
-						matGroup = matGroup && (null != mats[i].group(1));
 					}
 					else{
 						result = false;
@@ -171,10 +171,14 @@ public class FileProcess {
 				String str = "";
 				if(result){
 					for(int i = 0;i < num_of_regs;i++) {
-						if (i < num_of_regs - 1) {
-							str += mats[i].group(1) + ",";
-						} else {
-							str += mats[i].group(1) + "\n";
+							if(rss[i] == false){
+								str += "deficiency";
+							}
+							else {
+								str += mats[i].group(1);
+							}
+						if (i < num_of_regs - 1){
+							str += ",";
 						}
 					}
 					list.add(str);
