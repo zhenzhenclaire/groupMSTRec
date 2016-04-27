@@ -22,8 +22,8 @@ public class Test {
 //		makeItemReflection();
 //		makeRatingFile();
 
-		prepareUserClusteringData();
-		//prepareItemClusteringData();
+		//prepareUserClusteringData();
+		prepareItemClusteringData();
 		//testGetOriginalId(4);
 		//testGetReflectedId("fHtTaujcyKvXglE33Z5yIw");
 

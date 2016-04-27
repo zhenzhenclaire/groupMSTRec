@@ -5,3 +5,23 @@ Item_clustering,
 User_clustering,
 "user_id","funny","useful","cool", "review_count","fans","average_stars",
 "18kPq7GPye-YQ3LyKyAZPw",167,280,245,108,70,4.14
+
+Item
+# of cluster: 30, # of iterations:200, WSSSE:1722558.115968021
+# of cluster: 60, # of iterations:200, WSSSE:598186.2863518941
+# of cluster: 100, # of iterations:200, WSSSE:250600.85350775468
+# of cluster: 150, # of iterations:200, WSSSE:152655.69861585257
+# of cluster: 200, # of iterations:200, WSSSE:114935.57246128454
+# of cluster: 500, # of iterations:200, WSSSE:53712.14697765651
+# of cluster: 800, # of iterations:200, WSSSE:38897.41979631786
+# of cluster: 1000, # of iterations:200, WSSSE:34043.686927622766
+# of cluster: 3000, # of iterations:100, WSSSE:16346.914027678737
+
+
+User
+# of cluster: 50, # of iterations:200, WSSSE:1.5800676615425835E9
+# of cluster: 60, # of iterations:200, WSSSE:1.4667303125388613E9
+# of cluster: 65, # of iterations:200, WSSSE:1.2824673949695106E9
+# of cluster: 70, # of iterations:200, WSSSE:1.2836026898933656E9
+# of cluster: 85, # of iterations:200, WSSSE:9.777028758319854E8
+# of cluster: 100, # of iterations:200, WSSSE:8.830119486785612E8

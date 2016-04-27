@@ -53,30 +53,51 @@ public class ItemDaoImpl implements ItemDao {
 		/*
 	     * line 1: {"business_id": "5UmKMjUEUNdYWqANhGckJw", "full_address": "4734 Lebanon Church Rd\nDravosburg, PA 15034", "hours": {"Friday": {"close": "21:00", "open": "11:00"}, "Tuesday": {"close": "21:00", "open": "11:00"}, "Thursday": {"close": "21:00", "open": "11:00"}, "Wednesday": {"close": "21:00", "open": "11:00"}, "Monday": {"close": "21:00", "open": "11:00"}}, "open": true, "categories": ["Fast Food", "Restaurants"], "city": "Dravosburg", "review_count": 4, "name": "Mr Hoagie", "neighborhoods": [], "longitude": -79.9007057, "state": "PA", "stars": 4.5, "latitude": 40.3543266, "attributes": {"Take-out": true, "Drive-Thru": false, "Good For": {"dessert": false, "latenight": false, "lunch": false, "dinner": false, "brunch": false, "breakfast": false}, "Caters": false, "Noise Level": "average", "Takes Reservations": false, "Delivery": false, "Ambience": {"romantic": false, "intimate": false, "classy": false, "hipster": false, "divey": false, "touristy": false, "trendy": false, "upscale": false, "casual": false}, "Parking": {"garage": false, "street": false, "validated": false, "lot": false, "valet": false}, "Has TV": false, "Outdoor Seating": false, "Attire": "casual", "Alcohol": "none", "Waiter Service": false, "Accepts Credit Cards": true, "Good for Kids": true, "Good For Groups": true, "Price Range": 1}, "type": "business"}
 	     * Item_clustering,
-	     * "business_id","review_count","state","stars","Take-out","Drive-Thru","Caters","Noise Level","Has TV","Outdoor Seating","Alcohol","Waiter Service","Good for Kids","Good For Groups","Price Range",
+	      "business_id","review_count","state","stars","Take-out","Drive-Thru","Caters","Noise Level","Has TV","Outdoor Seating","Alcohol","Waiter Service","Good for Kids","Good For Groups","Price Range",
 	     * "5UmKMjUEUNdYWqANhGckJw",4,"PA",4.5,true,false,false,"average",false,false,"none",false,true,true,1
 	     * Changed item_clustering:
 	     * "business_id","review_count","state","stars","Caters","Noise Level","Outdoor Seating","Alcohol","Waiter Service","Good for Kids","Good For Groups","Price Range",
 	     * "5UmKMjUEUNdYWqANhGckJw",4,"PA",4.5,false,"average",false,"none",false,true,true,1
 	     */
-        String[] regs = new String[11];
-        regs[0] = "\"business_id\": \"(.*)\", \"full_address\"";
-        regs[1] = "\"review_count\": (.*), \"name\"";
-        regs[2] = "\"state\": \"(.*)\", \"stars\"";
-        regs[3] = "\"stars\": (.*), \"latitude\"";
+        ArrayList<String> regList = new ArrayList<>();
 
+        regList.add("\"business_id\": \"(.*)\", \"full_address\"");
+        regList.add("\"review_count\": (.*?),");
+        regList.add("\"state\": \"(.*?)\",");
+        regList.add("\"stars\": (.*?),");
+
+        regList.add("\"Caters\": (.*?),");
+        regList.add("\"Noise Level\": \"(.*?)\",");
+
+        regList.add("\"Outdoor Seating\": (.*?),");
+        regList.add("\"Alcohol\": \"(.*?)\",");
+        regList.add("\"Good for Kids\": (.*?),");
+        regList.add("\"Good For Groups\": (.*?),");
+        //Caution: some dataline has deficiency value on this field
+        //regList.add("\"Price Range\": (.*?)},");
+
+        /*
+        regList.add("\"business_id\": \"(.*)\", \"full_address\"");
+        regList.add("\"review_count\": (.*), \"name\"");
+        regList.add("\"state\": \"(.*)\", \"stars\"");
+        regList.add("\"stars\": (.*), \"latitude\"");
+
+        regList.add("\"Caters\": (.*), \"Noise Level\"");
+        regList.add("\"Noise Level\": \"(.*)\", \"Takes Reservations\"");
+
+        regList.add("\"Outdoor Seating\": (.*), \"Attire\"");
+        regList.add("\"Alcohol\": \"(.*)\", \"Waiter Service\"");
+        regList.add("\"Good for Kids\": (.*), \"Good For Groups\"");
+        regList.add("\"Good For Groups\": (.*), \"Price Range\"");
+        regList.add("\"Price Range\": (.*)}, \"type\"");
+        */
+
+        //regs[0] = "\"business_id\": \"(.*)\", \"full_address\"";
         //regs[4] = "\"Take-out\": (.*), \"Drive-Thru\"";
 //        regs[4] = "\"Drive-Thru\": (.*), \"Good For\"";
-        regs[4] = "\"Caters\": (.*), \"Noise Level\"";
-        regs[5] = "\"Noise Level\": \"(.*)\", \"Takes Reservations\"";
 //        regs[6] = "\"Has TV\": (.*), \"Outdoor Seating\"";
-        regs[6] = "\"Outdoor Seating\": (.*), \"Attire\"";
-        regs[7] = "\"Alcohol\": \"(.*)\", \"Waiter Service\"";
-        regs[8] = "\"Good for Kids\": (.*), \"Good For Groups\"";
-        regs[9] = "\"Good For Groups\": (.*), \"Price Range\"";
-        regs[10] = "\"Price Range\": (.*)}, \"type\"";
 
-        ArrayList<String> itemList = FileProcess.readFileByLines(itemFile, regs);
+        ArrayList<String> itemList = FileProcess.readFileByLines(itemFile, regList);
         ArrayList<String> itemClusteringList = new ArrayList<String>();
 
         // Generate userid <int>

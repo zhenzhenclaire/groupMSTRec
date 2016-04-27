@@ -45,7 +45,7 @@ public class FileProcess {
 				/*
 				Only for item Clustering to escape some invalid data line.
 				 */
-				if(str.split(",").length > 11)	continue;
+				if(str.split(",").length > 10)	continue;
 				writer.write(str);
 			}
 			writer.flush();
@@ -61,7 +61,6 @@ public class FileProcess {
 			}
 		}
 	}
-
 
 	public static ArrayList <String> readFileByLines(String fileName, String reg) {
 		File file = new File(fileName);
@@ -177,6 +176,71 @@ public class FileProcess {
 							else {
 								str += mats[i].group(1);
 							}
+						if (i < num_of_regs - 1){
+							str += ",";
+						}
+					}
+					list.add(str);
+				}
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+
+	public static ArrayList<String> readFileByLines(String fileName, ArrayList<String> regList) {
+		File file = new File(fileName);
+		BufferedReader reader = null;
+		ArrayList<String> list = new ArrayList<String>();
+		try {
+			reader = new BufferedReader(new FileReader(file));
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+
+				int num_of_regs = regList.size();
+
+				Pattern[] pats = new Pattern[num_of_regs];
+				Matcher[] mats = new Matcher[num_of_regs];
+				boolean[] rss = new boolean[num_of_regs];
+
+				for(int i = 0;i < num_of_regs;i++){
+					pats[i] = Pattern.compile(regList.get(i));
+					mats[i] = pats[i].matcher(line);
+					rss[i] = mats[i].find();
+				}
+
+				boolean rs = true;
+				boolean result = true;
+
+				for(int i = 0;i < num_of_regs;i++){
+					if(rs){
+						rs = rs && rss[i];
+					}
+					else{
+						result = false;
+						break;
+					}
+				}
+
+				String str = "";
+				if(result){
+					for(int i = 0;i < num_of_regs;i++) {
+						if(rss[i] == false){
+							str += "deficiency";
+						}
+						else {
+							str += mats[i].group(1);
+						}
 						if (i < num_of_regs - 1){
 							str += ",";
 						}
