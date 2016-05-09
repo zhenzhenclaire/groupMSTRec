@@ -11,6 +11,7 @@ import java.util.Properties;
  */
 public class Config {
     public static String dataPath;
+    public static String rDataPath;
     public static String clusteringPath;
     public static String userFile;
     public static String itemFile;
@@ -21,14 +22,19 @@ public class Config {
 
     public static String ratingFile;
     public static String replacedRating;
-    public static String squareMatrixPath;
-    public static String clusteringResult;
+
+    public static String user_usercl_mixcl;
+    public static String item_itemcl_mixcl;
+
+    public static String userClAvg;
+    public static String itemClAvg;
+    public static String mixcl_avgstars;
+    public static Double mixRating;
 
     public static String userReflectionTable;
     public static String itemReflectionTable;
     public static String ratingModel;
-    public static String mergedUser;
-    public static String mergedHotel;
+
     public static double alpha;
     public static int maxRating;
 
@@ -72,6 +78,7 @@ public class Config {
             e.printStackTrace();
         }
         dataPath = properties.getProperty("dataPath");
+        rDataPath = properties.getProperty("itemCluster");
         clusteringPath = dataPath + "clustering/";
 
         userFile = dataPath + properties.getProperty("userFile");
@@ -88,12 +95,15 @@ public class Config {
         itemClusteringData = clusteringPath + properties.getProperty("itemClusteringData");
 
 
-        squareMatrixPath = clusteringPath + properties.getProperty("squareMatrixPath");
-        clusteringResult = clusteringPath + properties.getProperty("clusteringResult");
+        user_usercl_mixcl = rDataPath + properties.getProperty("userCluster");
+        item_itemcl_mixcl = rDataPath + properties.getProperty("itemCluster");
+        userClAvg = rDataPath + properties.getProperty("userClAvg");
+        itemClAvg = rDataPath + properties.getProperty("itemClAvg");
+        mixcl_avgstars = rDataPath + properties.getProperty("mixcl_avgstars");
+        mixRating = Double.parseDouble(properties.getProperty("mixRating"));
 
         ratingModel = dataPath + properties.getProperty("ratingModel");
-        mergedHotel = clusteringPath + properties.getProperty("mergedHotel");
-        mergedUser = clusteringPath + properties.getProperty("mergedUser");
+
         alpha = Double.parseDouble(properties.getProperty("alpha", "0.5"));
         maxRating = Integer.parseInt(properties.getProperty("maxRating", "5"));
 

@@ -17,16 +17,22 @@ public class Test {
 	public static void main(String[] args) {
 
 		Config config = new Config();
-
+		makeRatingModel();
 //		makeUserReflection();
 //		makeItemReflection();
 //		makeRatingFile();
 
-		//prepareUserClusteringData();
-		prepareItemClusteringData();
-		//testGetOriginalId(4);
-		//testGetReflectedId("fHtTaujcyKvXglE33Z5yIw");
+//		prepareUserClusteringData();
+//		prepareItemClusteringData();
 
+		//makeRatingModel();
+
+	}
+
+	public static void makeRatingModel(){
+		ReviewDao rd = new ReviewDaoImpl();
+		String rating = rd.getReview("uK8tzraOp4M5u3uYrqIBXg","UsFtqoBl7naz8AVUBZMjQQ");
+		System.out.print(rating);
 	}
 
 	public static void prepareUserClusteringData(){

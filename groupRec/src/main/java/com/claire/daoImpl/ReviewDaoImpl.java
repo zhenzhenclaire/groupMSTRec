@@ -6,6 +6,7 @@ import com.claire.dao.ItemDao;
 import com.claire.util.Config;
 import com.claire.util.FileProcess;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -65,7 +66,52 @@ public class ReviewDaoImpl implements ReviewDao {
     }
 
     @Override
-    public int getReview(int userId, int itemId) {
-        return 0;
+    public String getReview(String userId, String itemId) {
+        String rating = "";
+        // 1. Find if this user has original rating to this item in ratingFile
+        boolean isFind = false;
+        File file = new File(Config.ratingFile);
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            String tempString = null;
+            int line = 1;
+            while ((tempString = reader.readLine()) != null) {
+                //int num = tempString.split(",").length;
+                String findStr = userId + "," + itemId;
+                if(tempString.contains(findStr)){
+                    rating = tempString.split(",")[2];
+                    isFind = true;
+                }
+                line++;
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                }
+            }
+        }
+
+        // 2. If not, calculate predicted rating
+        if(!isFind){
+            Double ucl = 0.0;
+            Double icl = 0.0;
+            Double ucl_avg = 0.0;
+            Double icl_avg = 0.0;
+            Double umix_avg = 0.0;
+            Double imix_avg = 0.0;
+
+            // 1)
+
+
+
+        }
+
+        return rating;
     }
 }

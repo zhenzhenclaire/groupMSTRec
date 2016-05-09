@@ -17,6 +17,10 @@ Item
 # of cluster: 1000, # of iterations:200, WSSSE:34043.686927622766
 # of cluster: 3000, # of iterations:100, WSSSE:16346.914027678737
 
+# of cluster: 50, # of iterations:30, WSSSE:1907.117971007975
+# of cluster: 100, # of iterations:200, WSSSE:1015.2065087358965
+# of cluster: 300, # of iterations:200, WSSSE:373.4247559390101
+# of cluster: 500, # of iterations:200, WSSSE:220.28356118647474
 
 User
 # of cluster: 50, # of iterations:200, WSSSE:1.5800676615425835E9

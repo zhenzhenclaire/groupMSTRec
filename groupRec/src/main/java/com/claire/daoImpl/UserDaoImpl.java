@@ -53,14 +53,14 @@ public class UserDaoImpl implements UserDao{
 	     * "user_id","funny","useful","cool", "review_count","fans","average_stars",
 	     * "18kPq7GPye-YQ3LyKyAZPw",167,280,245,108,70,4.14
 	     */
-		String[] regs = new String[5];
-		//regs[0] = "\"user_id\": \"(.*)\", \"friends\"";	//"user_id"
-		regs[0] = "\"funny\": (.*), \"useful\"";	//"funny"
+		String[] regs = new String[6];
+		regs[0] = "\"user_id\": \"(.*)\", \"friends\"";	//"user_id"
+		regs[1] = "\"funny\": (.*), \"useful\"";	//"funny"
 		//regs[2] = "\"useful\": (.*), \"cool\"";		//"useful"
-		regs[1] = "\"cool\": (.*)}, \"review_count\"";		//"cool"
-		regs[2] = "\"review_count\": (.*), \"name\"";		//"review_count"
-		regs[3] = "\"fans\": (.*), \"average_stars\"";		//"fans"
-		regs[4] = "\"average_stars\": (.*), \"type\"";		//"average_stars"
+		regs[2] = "\"cool\": (.*)}, \"review_count\"";		//"cool"
+		regs[3] = "\"review_count\": (.*), \"name\"";		//"review_count"
+		regs[4] = "\"fans\": (.*), \"average_stars\"";		//"fans"
+		regs[5] = "\"average_stars\": (.*), \"type\"";		//"average_stars"
 
 		ArrayList<String> userList = FileProcess.readFileByLines(userFile, regs);
 		ArrayList<String> userClusteringList = new ArrayList<String>();

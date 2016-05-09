@@ -10,6 +10,39 @@ import java.util.regex.Pattern;
  */
 public class FileProcess {
 
+	public static String findStringInFile(String fileName,String str) {
+		String result = "NOT FOUND";
+		boolean isFind = false;
+		File file = new File(fileName);
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(file));
+			String tempString = null;
+			int line = 1;
+			while ((tempString = reader.readLine()) != null && line < 10) {
+				//int num = tempString.split(",").length;
+				if (tempString.contains(str)) {
+					isFind = true;
+					result = tempString;
+					break;
+				}
+				line++;
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e1) {
+				}
+			}
+		}
+		return result;
+	}
+
+
 	public static void readFileByLines(String fileName) {
 		File file = new File(fileName);
 		BufferedReader reader = null;

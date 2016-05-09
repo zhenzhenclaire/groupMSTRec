@@ -15,12 +15,13 @@ object ItemKMeans {
 	val sc = new SparkContext(conf)
 
 	val item_input_path = dataPath + "itemClusteringData"
-	val item_reflect_dir = dataPath + "itemReflectData/"
+	//val item_reflect_dir = dataPath + "itemReflectData/"
+	val item_reflect_dir = dataPath + "itemClusteringDataTest"
 	val item_output_dir = dataPath + "itemClusteringResult"
 
 	def main(args: Array[String]) {
 //		refelct()
-		kmeans(1000,20)
+		kmeans(1250,200)
 	}
 
 	/**
