@@ -26,10 +26,18 @@ public class Config {
     public static String user_usercl_mixcl;
     public static String item_itemcl_mixcl;
 
+    public static String usercl_mixcl;
+    public static String itemcl_mixcl;
+
+    public static String userClusteringResult;
+    public static String itemClusteringResult;
+
     public static String userClAvg;
     public static String itemClAvg;
     public static String mixcl_avgstars;
     public static Double mixRating;
+    public static String user_cl_star;
+    public static String item_cl_star;
 
     public static String userReflectionTable;
     public static String itemReflectionTable;
@@ -78,7 +86,7 @@ public class Config {
             e.printStackTrace();
         }
         dataPath = properties.getProperty("dataPath");
-        rDataPath = properties.getProperty("itemCluster");
+        rDataPath = properties.getProperty("rDataPath");
         clusteringPath = dataPath + "clustering/";
 
         userFile = dataPath + properties.getProperty("userFile");
@@ -94,13 +102,18 @@ public class Config {
         userClusteringData = clusteringPath + properties.getProperty("userClusteringData");
         itemClusteringData = clusteringPath + properties.getProperty("itemClusteringData");
 
-
+        userClusteringResult = rDataPath + properties.getProperty("userClusteringResult");
+        itemClusteringResult = rDataPath + properties.getProperty("itemClusteringResult");
         user_usercl_mixcl = rDataPath + properties.getProperty("userCluster");
         item_itemcl_mixcl = rDataPath + properties.getProperty("itemCluster");
+        usercl_mixcl = rDataPath + properties.getProperty("usercl_mixcl");
+        itemcl_mixcl = rDataPath + properties.getProperty("itemcl_mixcl");
         userClAvg = rDataPath + properties.getProperty("userClAvg");
         itemClAvg = rDataPath + properties.getProperty("itemClAvg");
         mixcl_avgstars = rDataPath + properties.getProperty("mixcl_avgstars");
         mixRating = Double.parseDouble(properties.getProperty("mixRating"));
+        user_cl_star = rDataPath + properties.getProperty("user_cl_star");
+        item_cl_star = rDataPath + properties.getProperty("item_cl_star");
 
         ratingModel = dataPath + properties.getProperty("ratingModel");
 

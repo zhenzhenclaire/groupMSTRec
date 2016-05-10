@@ -11,6 +11,6 @@ public interface ReviewDao {
 
     void replaceByReflectionTable(ArrayList<String> starList);
 
-    String getReview(String userId, String itemId);
+    Double getReview(String userId, String itemId);
 
 }

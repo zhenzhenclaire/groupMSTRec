@@ -12,17 +12,15 @@ public class FileProcess {
 
 	public static String findStringInFile(String fileName,String str) {
 		String result = "NOT FOUND";
-		boolean isFind = false;
 		File file = new File(fileName);
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new FileReader(file));
 			String tempString = null;
 			int line = 1;
-			while ((tempString = reader.readLine()) != null && line < 10) {
+			while ((tempString = reader.readLine()) != null) {
 				//int num = tempString.split(",").length;
 				if (tempString.contains(str)) {
-					isFind = true;
 					result = tempString;
 					break;
 				}

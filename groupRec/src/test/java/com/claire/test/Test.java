@@ -31,8 +31,7 @@ public class Test {
 
 	public static void makeRatingModel(){
 		ReviewDao rd = new ReviewDaoImpl();
-		String rating = rd.getReview("uK8tzraOp4M5u3uYrqIBXg","UsFtqoBl7naz8AVUBZMjQQ");
-		System.out.print(rating);
+		Double rating = rd.getReview("4U9kSBLuBDU391x6bxU-YA","MKyk4F4HSzHF8v-4cYe3Ww");
 	}
 
 	public static void prepareUserClusteringData(){
