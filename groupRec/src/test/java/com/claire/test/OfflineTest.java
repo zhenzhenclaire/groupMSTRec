@@ -12,7 +12,7 @@ import com.claire.util.FileProcess;
 
 import java.util.ArrayList;
 
-public class Test {
+public class OfflineTest {
 
 	public static void main(String[] args) {
 

@@ -41,7 +41,7 @@ public class RecStore {
     	}
     }
 
-    public void createGroup(User user, Time arrivedTime, int num) {
+    public void createGroup(User user, String arrivedTime, int num) {
     	Group g = new Group();
     	g.setArrviedTime(arrivedTime);
     	g.setID(groupID);

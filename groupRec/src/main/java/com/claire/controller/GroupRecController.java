@@ -165,13 +165,9 @@ public class GroupRecController {
 				log.info("mode: "+mode);
 				
 				 
-				
-		        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		        Time dTime=new Time(sdf.parse(departureTime).getTime());
-		        Time gTime=new Time(sdf.parse(gatheringTime).getTime());
-				
+
 		        User u = new User();
-				u.setStartTime(dTime);
+				u.setStartTime(departureTime);
 				u.setName(user);
 				
 				u.setLocation(Config.getInstance().userLocationList.get(0));
@@ -187,7 +183,7 @@ public class GroupRecController {
 				}
 				
 				
-				RecStore.getInstance().createGroup( u,  gTime, new Integer(numberOfUsers).intValue());
+				RecStore.getInstance().createGroup( u,  gatheringTime, new Integer(numberOfUsers).intValue());
 				
 				
 				return result.toString();
@@ -238,14 +234,10 @@ public class GroupRecController {
 				log.info("user: "+user);
 				result.put("mode", mode);
 				log.info("mode: "+mode);
-				
-				 
-				
-		        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		        Time dTime=new Time(sdf.parse(departureTime).getTime());
+
 		        
 		        User u = new User();
-				u.setStartTime(dTime);
+				u.setStartTime(departureTime);
 				u.setName(user);
 				
 				u.setLocation(Config.getInstance().userLocationList.get(RecStore.getInstance().group.getMembers().size()));

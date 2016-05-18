@@ -184,5 +184,9 @@
     <orderEntry type="library" name="Gradle: junit:junit:4.8.2" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-math3:3.1.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:guava:14.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.jgrapht:jgrapht-core:0.9.2" level="project" />
+    <orderEntry type="library" name="Gradle: jgraph:jgraph:5.13.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jgrapht:jgrapht-ext:0.9.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.tinyjee.jgraphx:jgraphx:2.0.0.1" level="project" />
   </component>
 </module>

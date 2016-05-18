@@ -2,6 +2,7 @@ package com.claire.service;
 
 import com.claire.entity.*;
 import com.claire.util.Matrix;
+import org.jgrapht.Graph;
 
 import java.util.List;
 
@@ -9,19 +10,17 @@ import java.util.List;
  * Created by admin on 2016/3/31.
  */
 public interface GraphMakeService {
-    List<Item> getHighScoreItemList(Group group, Matrix preferenceMatrix);
 
-    int getItemFavor(Group group, Item Item);
+    List<String> getItems(Group group);
 
-    List<ItemNode> createItemNodes (List<Item> itemList);
+    List<UserNode> createUserNodes (Group group);
 
-    List<User> getUsers (Group group);
+    List<ItemNode> createItemNodes (Group group);
 
-    List<UserNode> createUserNodes (List<User> userList);
+    Graph makeOriginalGraph(List<UserNode> userNodes,List<ItemNode> itemNodes);
 
-    Graph createGraph (List<UserNode> userNodeList, List<ItemNode> itemNodeList);
+    int userDistanceCal(UserNode usernode1, UserNode userNode2);
 
-    Graph filterByTimeCost();
+    Graph makeProjectedGraph (Graph originalGraph);
 
-    InducedGraph projectGraphByUser (Graph g);
 }
