@@ -1,7 +1,9 @@
 package com.claire.service;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
+import com.claire.entity.Group;
 import com.claire.util.Mode;
 
 
@@ -10,6 +12,11 @@ import com.claire.util.Mode;
  */
 public interface PositionService {
 
-     Time getTransportationTime(String startingLoc, String destination, Mode mode);
+     int getDistance(String startingLoc, String destination, Mode mode);
 
+     int getDuration(String startingLoc, String destination, Mode mode);
+
+     ArrayList<String> getDurationOfGroup(Group group, String destination);
+
+     ArrayList<String> getDistanceOfGroup(Group group, String destination);
 }

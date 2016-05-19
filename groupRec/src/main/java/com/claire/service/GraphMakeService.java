@@ -19,6 +19,8 @@ public interface GraphMakeService {
 
     Graph makeOriginalGraph(List<UserNode> userNodes,List<ItemNode> itemNodes);
 
+    Graph makeDistanceGraph(List<UserNode> userNodes,List<ItemNode> itemNodes);
+
     int userDistanceCal(UserNode usernode1, UserNode userNode2);
 
     Graph makeProjectedGraph (Graph originalGraph);
