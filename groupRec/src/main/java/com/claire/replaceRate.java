@@ -76,8 +76,8 @@ public class replaceRate {
     public static void main(String[] args) throws Exception {
         replaceRate replace = new replaceRate();
         String rateinput = "/home/claire/IdeaProjects/groupMSTRec/data/ratingFile";
-        String iteminput = "/home/claire/RProjects/GroupRec/itemClusteringResult";
-        String userinput = "/home/claire/RProjects/GroupRec/userClusteringResult";
+        String iteminput = "/home/claire/RProjects/GroupRec/data/itemSummary/itemClusteringResult";
+        String userinput = "/home/claire/RProjects/GroupRec/data/userSummary/userClusteringResult";
         String output = "/home/claire/IdeaProjects/groupMSTRec/data/reRatingFile";
         replace.replace(rateinput,iteminput,userinput,output);
     }

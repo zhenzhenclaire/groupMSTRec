@@ -4,7 +4,11 @@ import com.claire.dao.ItemDao;
 import com.claire.entity.Item;
 import com.claire.util.Config;
 import com.claire.util.FileProcess;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,8 +50,52 @@ public class ItemDaoImpl implements ItemDao {
         logger.info("Done.");
     }
 
-    @Override
-    public void makeItemClusteringData() {
+    public void makeItemClusteringData(){
+        logger.info("Start preparing item clustering data.");
+        BufferedReader reader = null;
+        ArrayList<String> itemClusteringList = new ArrayList<String>();
+
+        try {
+            reader = new BufferedReader(new FileReader(itemFile));
+            String tempString = null;
+            int line = 1;
+            while ((tempString = reader.readLine()) != null) {
+                //int num = tempString.split(",").length;
+                JSONObject jo = new JSONObject(tempString);
+
+                String business_id = FileProcess.JSONStringProcess(jo,"business_id");
+                int review_count = FileProcess.JSONIntProcess(jo,"review_count");
+                String state = FileProcess.JSONStringProcess(jo,"state");
+                int stars = FileProcess.JSONIntProcess(jo,"stars");
+                String Caters = FileProcess.JSONBooleanProcess(FileProcess.JSONObjectProcess(jo,"attributes"),"Caters");
+                String Noise_Level = FileProcess.JSONStringProcess(FileProcess.JSONObjectProcess(jo,"attributes"),"Noise Level");
+                String Outdoor_Seating = FileProcess.JSONBooleanProcess(FileProcess.JSONObjectProcess(jo,"attributes"),"Outdoor Seating");
+                String Alcohol = FileProcess.JSONStringProcess(FileProcess.JSONObjectProcess(jo,"attributes"),"Alcohol");
+                String Good_for_Kids = FileProcess.JSONBooleanProcess(FileProcess.JSONObjectProcess(jo,"attributes"),"Good for Kids");
+                String Good_for_Groups = FileProcess.JSONBooleanProcess(FileProcess.JSONObjectProcess(jo,"attributes"),"Good For Groups");
+
+                String writeLine = business_id + "," + review_count + "," + state + "," + stars + ","  + Caters  + "," +
+                        Noise_Level  + "," + Outdoor_Seating  + "," + Alcohol  + "," + Good_for_Kids  + "," + Good_for_Groups  + "\n";
+                itemClusteringList.add(writeLine);
+                line++;
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                }
+            }
+        }
+        FileProcess.writeToFile(itemClusteringList,itemClusteringData);
+        logger.info("Done.");
+    }
+
+
+    public void makeItemClusteringData1() {
         logger.info("Start preparing item clustering data.");
         // read from dataPath/userFile
 		/*

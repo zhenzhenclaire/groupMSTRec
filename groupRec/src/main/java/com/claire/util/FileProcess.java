@@ -1,5 +1,10 @@
 package com.claire.util;
 
+
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -9,6 +14,57 @@ import java.util.regex.Pattern;
  * Created by admin on 2016/4/5.
  */
 public class FileProcess {
+
+	public static JSONObject JSONObjectProcess(JSONObject jo, String str){
+		JSONObject result = null;
+		try {
+			if (jo.has(str)) {
+				result = jo.getJSONObject(str);
+			}
+		}
+		catch(JSONException e){
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public static Integer JSONIntProcess(JSONObject jo, String str){
+		int result = 0;
+		try {
+			if (jo.has(str)) {
+				result = jo.getInt(str);
+			}
+		}
+		catch(JSONException e){
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public static String JSONStringProcess(JSONObject jo, String str){
+		String result = "Deficiency";
+		try {
+			if (jo.has(str)) {
+				result = jo.getString(str);
+			}
+		}
+			catch(JSONException e){
+				e.printStackTrace();
+			}
+		return result;
+	}
+
+	public static String JSONBooleanProcess(JSONObject jo, String str){
+		String result = "Deficiency";
+		try {
+			if (jo.has(str)) {
+				result = jo.getBoolean(str) + "";
+			}
+		}
+		catch(JSONException e){
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	public static String findStringInFile(String fileName,String str) {
 		String result = "NOT FOUND";
