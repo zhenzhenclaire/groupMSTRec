@@ -52,7 +52,7 @@ public class GraphMakeServiceImpl implements GraphMakeService{
 
     @Override
     public List<UserNode> createUserNodes(Group group) {
-        logger.info("UserNodes:");
+
         List<User> userList = group.getMembers();
         List<UserNode> userNodeList = new ArrayList<UserNode>();
         if(userList.size() >= 1) {
@@ -62,14 +62,16 @@ public class GraphMakeServiceImpl implements GraphMakeService{
 //                logger.info(uNode.getID());
             }
         }
+        logger.info("UserNodes:" + userNodeList.size());
         return userNodeList;
     }
 
     @Override
     public List<ItemNode> createItemNodes(Group group) {
-        logger.info("ItemNodes:");
+
         List<ItemNode> itemNodeList = new ArrayList<ItemNode>();
         List<String> itemIdList = getItems(group);
+        logger.info("# of found item in rating file" + itemIdList.size());
         if(itemIdList.size() != 0){
             // "longitude": -79.9007057, "state": "PA", "stars": 4.5, "latitude": 40.3543266, "attributes":
             // 1. Find location
@@ -88,6 +90,7 @@ public class GraphMakeServiceImpl implements GraphMakeService{
                 itemNodeList.add(iNode);
             }
         }
+        logger.info("ItemNodes:" + itemNodeList.size());
         return itemNodeList;
     }
 
@@ -112,13 +115,16 @@ public class GraphMakeServiceImpl implements GraphMakeService{
         int itemNodeSize = itemNodes.size();
 
         ReviewDao rd = new ReviewDaoImpl();
+        int num = 1;
         for(int i = 0; i < userNodeSize;i++){
             for(int j = 0;j < itemNodeSize;j++){
                 String userId = userNodes.get(i).getID();
                 String itemId = itemNodes.get(j).getID();
                 DefaultWeightedEdge e = g.addEdge(userId,itemId);
                 Double weight = rd.getReview(userId,itemId);
-                logger.info(userId + "," + itemId + ":" + weight);
+                System.out.println(num + ":" + userId + "-" + itemId + ":" + weight);
+                num++;
+//                logger.info(userId + "," + itemId + ":" + weight);
                 g.setEdgeWeight(e,weight);
             }
         }

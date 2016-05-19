@@ -36,6 +36,8 @@ public class Config {
     public static String itemClAvg;
     public static String mixcl_avgstars;
     public static Double mixRating;
+    public static Double userAvgRating;
+    public static Double itemAvgRating;
     public static String user_cl_star;
     public static String item_cl_star;
 
@@ -45,6 +47,7 @@ public class Config {
 
     public static double alpha;
     public static int maxRating;
+
 
     public static List<String> userLocationList;
     public static List<String> itemLocationList;
@@ -112,6 +115,8 @@ public class Config {
         itemClAvg = rDataPath + properties.getProperty("itemClAvg");
         mixcl_avgstars = rDataPath + properties.getProperty("mixcl_avgstars");
         mixRating = Double.parseDouble(properties.getProperty("mixRating"));
+        userAvgRating = Double.parseDouble(properties.getProperty("userAvgRating"));
+        itemAvgRating = Double.parseDouble(properties.getProperty("itemAvgRating"));
         user_cl_star = rDataPath + properties.getProperty("user_cl_star");
         item_cl_star = rDataPath + properties.getProperty("item_cl_star");
 
