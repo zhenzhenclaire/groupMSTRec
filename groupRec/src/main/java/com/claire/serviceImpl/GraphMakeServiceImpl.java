@@ -1,5 +1,6 @@
 package com.claire.serviceImpl;
 
+import akka.io.Tcp;
 import com.claire.dao.ReviewDao;
 import com.claire.daoImpl.ReviewDaoImpl;
 import com.claire.entity.*;
@@ -8,10 +9,13 @@ import com.claire.service.PositionService;
 import com.claire.util.Config;
 import com.claire.util.FileProcess;
 
+import com.claire.util.GraphProcess;
+import org.jgrapht.ext.GraphMLExporter;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
 import org.json.JSONObject;
 
+import java.io.Writer;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -75,8 +79,12 @@ public class GraphMakeServiceImpl implements GraphMakeService{
                 JSONObject jo = new JSONObject(line);
                 String longitude = jo.getDouble("longitude") + "";
                 String latitude = jo.getDouble("latitude") + "";
-                String location = longitude + "," + latitude;
+                String location = latitude + "," + longitude;
+                String name = jo.getString("name");
+                String city = jo.getString("city");
+                String state = jo.getString("state");
 
+                System.out.println(id + ":" + name + "-" + city + "-" + state);
 //                logger.info(id + ":" + location);
 
                 Item item = new Item(id,location);
@@ -109,7 +117,6 @@ public class GraphMakeServiceImpl implements GraphMakeService{
 
         ReviewDao rd = new ReviewDaoImpl();
 
-        int num = 1;
         for(int i = 0; i < userNodeSize;i++){
             String userId = userNodes.get(i).getID();
 
@@ -119,12 +126,12 @@ public class GraphMakeServiceImpl implements GraphMakeService{
                 DefaultWeightedEdge e = g.addEdge(userId,itemId);
                 Double weight = rd.getReview(userId,itemId);
                 //System.out.println(num + ":" + userId + "-" + itemId + ":" + weight);
-                num++;
 //                logger.info(userId + "," + itemId + ":" + weight);
                 g.setEdgeWeight(e,weight);
-                System.out.println(g.getEdge(userId,itemId).toString() + ":" +g.getEdgeWeight(g.getEdge(userId,itemId)));
+//                System.out.println(g.getEdge(userId,itemId).toString() + ":" +g.getEdgeWeight(g.getEdge(userId,itemId)));
             }
         }
+        GraphProcess.saveWeightedGraph(Config.originalGraph,g);
         return g;
     }
 
@@ -159,11 +166,12 @@ public class GraphMakeServiceImpl implements GraphMakeService{
                 String itemId = item.getId();
                 DefaultWeightedEdge e = g.addEdge(userId,itemId);
                 int duration = positionService.getDuration(u.getLocation(),item.getLocation(),u.getTransportMode());
-                System.out.println(userId + "-" + itemId + ":" + duration);
+//                System.out.println(userId + "-" + itemId + ":" + duration);
                 g.setEdgeWeight(e,duration);
-                System.out.println(g.getEdge(userId,itemId).toString() + ":" +g.getEdgeWeight(g.getEdge(userId,itemId)));
+//                System.out.println(g.getEdge(userId,itemId).toString() + ":" +g.getEdgeWeight(g.getEdge(userId,itemId)));
             }
         }
+        GraphProcess.saveWeightedGraph(Config.distanceGraph,g);
         return g;
     }
 

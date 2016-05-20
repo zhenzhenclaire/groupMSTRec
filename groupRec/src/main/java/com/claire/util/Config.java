@@ -48,6 +48,8 @@ public class Config {
     public static double alpha;
     public static int maxRating;
 
+    public static String distanceGraph;
+    public static String  originalGraph;
 
     public static List<String> userLocationList;
     public static List<String> itemLocationList;
@@ -124,6 +126,9 @@ public class Config {
 
         alpha = Double.parseDouble(properties.getProperty("alpha", "0.5"));
         maxRating = Integer.parseInt(properties.getProperty("maxRating", "5"));
+
+        distanceGraph = dataPath + properties.getProperty("distanceGraph");
+        originalGraph = dataPath + properties.getProperty("originalGraph");
 
         List<String> list  = new ArrayList<String>();
         list.add("37.7531, -122.4039");

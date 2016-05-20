@@ -4,10 +4,12 @@ import com.claire.entity.Group;
 import com.claire.service.PositionService;
 import com.claire.util.Mode;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 import org.json.JSONArray;
@@ -215,11 +217,15 @@ public class PositionServiceImpl implements PositionService {
         URL = URL.replaceAll("desGPS", destination);
         URL = URL.replaceAll("tmode", tmode);
 
-        logger.info("URL:" + URL);
+        System.out.println("URL:" + URL);
 
         // Setup the HttpClient
         HttpClient httpclient = new DefaultHttpClient();
 
+        // Setup proxy to allow httpclient access to https via proxy
+        String proxyIp="9.181.193.205";
+        int port=8080;
+        httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,new HttpHost(proxyIp,port));
         httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,600000);
         httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 600000);
 
@@ -234,13 +240,13 @@ public class PositionServiceImpl implements PositionService {
             // Execute the request
             Thread.sleep(250);
             response = httpclient.execute(rootServiceDoc);
-            System.out.println(">> HTTP Status code:" + response.getStatusLine());
+//            System.out.println(">> HTTP Status code:" + response.getStatusLine());
 
             if (response.getStatusLine().getStatusCode() == 200) {
 
                 String json = returnResponseBody(response);
 
-                logger.info("json from response: " + json);
+//                logger.info("json from response: " + json);
 
                 resultJSON = new JSONObject(json);
 
